@@ -61,4 +61,22 @@ public class GuildSets {
         }
         return new DJRole();
     }
+
+    //Wert von 200 bis 0
+    public void setVolume(int vol) {
+        if (vol > 100) {
+            vol = 100;
+        } else if (vol < 10) {
+            vol = 10;
+        }
+        item("VOLUME").put(vol);
+    }
+    public int getVolume() {
+        if (item("VOLUME").exists()) {
+            return item("VOLUME").get(int.class);
+        } else {
+            //TODO: Einstellbar machen
+            return 50;
+        }
+    }
 }

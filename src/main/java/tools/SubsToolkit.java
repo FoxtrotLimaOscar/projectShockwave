@@ -8,4 +8,11 @@ public class SubsToolkit {
             return "❌";
         }
     }
+    public static int lowerOf(int x, int y) {
+        if(x > y) {
+            return y;
+        } else {
+            return x;
+        }
+    }
 }
