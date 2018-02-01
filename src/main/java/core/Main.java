@@ -1,10 +1,9 @@
 package core;
 
 import commands.CmdHandler;
-import commands.information.CmdHelp;
-import commands.management.CmdSettings;
-import commands.management.CmdShutdown;
-import commands.information.CmdPing;
+import commands.information.*;
+import commands.music.*;
+import commands.management.*;
 import listener.msgListener;
 import listener.reactListener;
 import listener.readyListener;
@@ -54,6 +53,7 @@ public class Main {
         CmdHandler.commands.put("shutdown", new CmdShutdown());
         CmdHandler.commands.put("help", new CmdHelp());
         CmdHandler.commands.put("settings", new CmdSettings());
+        CmdHandler.commands.put("play", new CmdPlay());
     }
 
 

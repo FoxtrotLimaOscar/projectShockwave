@@ -1,6 +1,8 @@
 package tools;
 
+import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import commands.CmdHandler;
+import commands.music.utils.AudioInfo;
 import core.Permission;
 import entities.BotSets;
 import entities.GuildSets;
@@ -178,6 +180,33 @@ public class MsgPresets extends EmbedBuilder {
                 .setTitle("⚙ - BOT EINSTELLUNGEN")
                 .addField("Status", botsettings.getGame().getName(), true)
                 .setFooter("Seite 4/4", null)
+                .build();
+    }
+    public static MessageEmbed musicNoSearchfactor(String prefix) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("\uD83C\uDFB5 - KEIN PARAMETER")
+                .setDescription("Um einen Song abzuspielen musst du entweder einenen Link oder einen Name eingeben.\nGenaueres findest du unter " + prefix + "help play")
+                .build();
+    }
+    public static MessageEmbed musicNoResultsFound() {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("\uD83C\uDFB5 - KEINE ERGEBNISSE")
+                .setDescription("Es wurden keine Songs gefunden")
+                .build();
+    }
+    public static MessageEmbed musicQueuedInfo(AudioPlaylist playlist) {
+        String description;
+        if (playlist.getTracks().size() != 1) {
+            description = "Die Playlist \"" + playlist.getName() + "\" wurde der Queue hinzugefügt";
+        } else {
+            description = "Der Track \"" + playlist.getTracks().get(0).getInfo().title + "\" wurde der Queue hinzugefügt";
+        }
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("\uD83C\uDFB5 - QUEUE")
+                .setDescription(description)
                 .build();
     }
 }

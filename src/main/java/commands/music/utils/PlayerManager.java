@@ -8,13 +8,13 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.TextChannel;
 import settings.Database;
+import tools.MsgPresets;
 import tools.SubsToolkit;
 
-import java.awt.*;
 import java.util.*;
 
 public class PlayerManager {
@@ -43,7 +43,7 @@ public class PlayerManager {
         }
     }
 
-    private TrackManager getManager(Guild guild) {
+    private static TrackManager getManager(Guild guild) {
         //TODO: Kontrollieren ob Manager Null returnen darf
         return PLAYERS.get(guild).getValue();
     }
@@ -52,11 +52,11 @@ public class PlayerManager {
         return !hasPlayer(guild) || getPlayer(guild).getPlayingTrack() == null;
     }
 
-    private void loadTrackAdvanced(String identifier, int selection, boolean shuffle, boolean quit, MessageReceivedEvent event) {
-        Guild guild = event.getGuild();
+    public static void loadTrack(String identifier, int selection, boolean shuffle, Member member, TextChannel channel) {
+        Guild guild = member.getGuild();
         AudioPlayer player = getPlayer(guild);
         ArrayList<AudioTrack> gonnaQueue = new ArrayList<>();
-        Set<AudioInfo> activeQueue = getManager(guild).getQueue();
+        boolean sendInfo = !getManager(guild).getQueue().isEmpty();
 
 
         //TODO Einstellbar machen
@@ -67,7 +67,7 @@ public class PlayerManager {
 
             @Override
             public void trackLoaded(AudioTrack track) {
-                getManager(guild).queue(track, event.getMember());
+                getManager(guild).queue(track, member);
             }
 
             @Override
@@ -80,7 +80,7 @@ public class PlayerManager {
                 if (shuffle) {
                     Collections.shuffle(gonnaQueue);
                 }
-                //TODO: maxPlaylistLength Einstellbar machen
+                //TODO: Playlistlimit Einstellbar machen
                 for (AudioTrack track : gonnaQueue.subList(0, SubsToolkit.lowerOf(gonnaQueue.size(), 100))) {
                     trackLoaded(track);
                 }
@@ -88,12 +88,7 @@ public class PlayerManager {
 
             @Override
             public void noMatches() {
-                event.getTextChannel().sendMessage(new EmbedBuilder()
-                        .setColor(Color.blue)
-                        .setTitle(":musical_note: - MUSIC")
-                        .setDescription("Es wurden keine oder zu wenige Songs gefunden!")
-                        .build()
-                ).queue();
+                channel.sendMessage(MsgPresets.musicNoResultsFound()).queue();
             }
 
             @Override

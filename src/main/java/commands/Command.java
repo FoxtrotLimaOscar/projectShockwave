@@ -3,6 +3,9 @@ package commands;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import settings.Database;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class Command {
 
     private MessageReceivedEvent event;
@@ -34,5 +37,17 @@ public class Command {
     }
     public MessageReceivedEvent getEvent() {
         return this.event;
+    }
+    //Invoke == pos0 | arg1 == pos1
+    public boolean hasParam(int pos) {
+        if (this.sliced.length > pos) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String getRaw(int start) {
+        return Arrays.stream(sliced).skip(start).map(s -> " " + s).collect(Collectors.joining()).substring(1);
     }
 }

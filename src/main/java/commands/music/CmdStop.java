@@ -1,4 +1,4 @@
 package commands.music;
 
-public class cmdStop {
+public class CmdStop {
 }
