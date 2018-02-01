@@ -28,7 +28,7 @@ public class CmdShutdown implements CmdInterface {
 
     @Override
     public void emoteUpdate(ReactEvent reactEvent) {
-        boolean sameUser = user.equals(reactEvent.getUser());
+        boolean sameUser = this.user.equals(reactEvent.getUser());
         if (reactEvent.getEmote().equals("✅") && sameUser) {
             Message msg = reactEvent.getMessage();
             msg.editMessage(MsgPresets.Shutdown()).complete();

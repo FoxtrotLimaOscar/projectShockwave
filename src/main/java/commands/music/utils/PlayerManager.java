@@ -8,8 +8,11 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import commands.CmdHandler;
+import commands.CmdInterface;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import settings.Database;
 import tools.MsgPresets;
@@ -35,7 +38,7 @@ public class PlayerManager {
         return PLAYERS.containsKey(guild);
     }
 
-    private static AudioPlayer getPlayer(Guild guild) {
+    public static AudioPlayer getPlayer(Guild guild) {
         if (hasPlayer(guild)) {
             return PLAYERS.get(guild).getKey();
         } else {
@@ -43,20 +46,20 @@ public class PlayerManager {
         }
     }
 
-    private static TrackManager getManager(Guild guild) {
+    public static TrackManager getTrackManager(Guild guild) {
         //TODO: Kontrollieren ob Manager Null returnen darf
         return PLAYERS.get(guild).getValue();
     }
 
-    private boolean isIdle(Guild guild) {
+    public static boolean isIdle(Guild guild) {
         return !hasPlayer(guild) || getPlayer(guild).getPlayingTrack() == null;
     }
 
-    public static void loadTrack(String identifier, int selection, boolean shuffle, Member member, TextChannel channel) {
+    public static void loadTrack(String identifier, int selection, boolean shuffle, Member member, TextChannel channel, CmdInterface cmdInterface) {
         Guild guild = member.getGuild();
         AudioPlayer player = getPlayer(guild);
         ArrayList<AudioTrack> gonnaQueue = new ArrayList<>();
-        boolean sendInfo = !getManager(guild).getQueue().isEmpty();
+        boolean sendInfo = !getTrackManager(guild).getQueue().isEmpty();
 
 
         //TODO Einstellbar machen
@@ -67,7 +70,7 @@ public class PlayerManager {
 
             @Override
             public void trackLoaded(AudioTrack track) {
-                getManager(guild).queue(track, member);
+                getTrackManager(guild).queue(track, member);
             }
 
             @Override
@@ -84,6 +87,11 @@ public class PlayerManager {
                 for (AudioTrack track : gonnaQueue.subList(0, SubsToolkit.lowerOf(gonnaQueue.size(), 100))) {
                     trackLoaded(track);
                 }
+                if (!getTrackManager(guild).getQueue().isEmpty()) {
+                    Message msg = channel.sendMessage(MsgPresets.musicQueuedInfo(playlist)).complete();
+                    msg.addReaction("❌").queue();
+                    CmdHandler.reactionTickets.put(msg.getId(), cmdInterface);
+                }
             }
 
             @Override
@@ -96,5 +104,9 @@ public class PlayerManager {
                 exception.printStackTrace();
             }
         });
+    }
+
+    public static void skip(Guild guild) {
+        getPlayer(guild).stopTrack();
     }
 }

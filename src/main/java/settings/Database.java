@@ -13,7 +13,7 @@ public class Database {
     public static Shelf shelf = null;
 
     public static void load() {
-        File file = new File("database.obj");
+        File file = new File("DATA");
         shelf = new Shelf(file);
     }
 
