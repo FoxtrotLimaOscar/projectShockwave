@@ -9,10 +9,7 @@ import entities.GuildSets;
 import entities.UserSets;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import settings.Database;
 
@@ -196,17 +193,28 @@ public class MsgPresets extends EmbedBuilder {
                 .setDescription("Es wurden keine Songs gefunden")
                 .build();
     }
-    public static MessageEmbed musicQueuedInfo(AudioPlaylist playlist) {
+    public static MessageEmbed musicQueuedInfo(boolean playlist, String title, String uri) {
         String description;
-        if (playlist.getTracks().size() != 1) {
-            description = "Die Playlist \"" + playlist.getName() + "\" wurde der Queue hinzugefügt";
+        if (playlist) {
+            description = "Die Playlist \"" + title + "\" wurde der Queue hinzugefügt";
         } else {
-            description = "Der Track \"" + playlist.getTracks().get(0).getInfo().title + "\" wurde der Queue hinzugefügt";
+            description = "Der Track \"" + title + "\" wurde der Queue hinzugefügt";
         }
+        uri = ProjectTools.getThumbnail(uri);
         return new EmbedBuilder()
                 .setColor(defaultColor)
                 .setTitle("\uD83C\uDFB5 - QUEUE")
                 .setDescription(description)
+                .setThumbnail(uri)
+                .build();
+    }
+    public static MessageEmbed musicPlayingInfo(String tile, String uri) {
+        uri = ProjectTools.getThumbnail(uri);
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("\uD83C\uDFB5 - QUEUE")
+                .setDescription("Der Track \"" + tile + "\" wird nun abgespielt")
+                .setThumbnail(uri)
                 .build();
     }
 }

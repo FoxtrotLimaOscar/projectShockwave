@@ -8,6 +8,7 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import commands.CmdHandler;
 import commands.CmdInterface;
 import net.dv8tion.jda.core.entities.Guild;
@@ -59,6 +60,7 @@ public class PlayerManager {
         Guild guild = member.getGuild();
         AudioPlayer player = getPlayer(guild);
         ArrayList<AudioTrack> gonnaQueue = new ArrayList<>();
+        Set<AudioInfo> activeQueue = PlayerManager.getTrackManager(guild).getQueue();
         boolean sendInfo = !getTrackManager(guild).getQueue().isEmpty();
 
 
@@ -87,10 +89,18 @@ public class PlayerManager {
                 for (AudioTrack track : gonnaQueue.subList(0, SubsToolkit.lowerOf(gonnaQueue.size(), 100))) {
                     trackLoaded(track);
                 }
-                if (!getTrackManager(guild).getQueue().isEmpty()) {
-                    Message msg = channel.sendMessage(MsgPresets.musicQueuedInfo(playlist)).complete();
+                Message msg = null;
+                AudioTrackInfo info = playlist.getTracks().get(0).getInfo();
+                if (gonnaQueue.size() > 1) {
+                    msg = channel.sendMessage(MsgPresets.musicQueuedInfo(true, playlist.getName(), info.uri)).complete();
+                } else if (activeQueue.isEmpty()) {
+                    msg = channel.sendMessage(MsgPresets.musicQueuedInfo(false, info.title, info.uri)).complete();
+                }
+                try {
                     msg.addReaction("❌").queue();
                     CmdHandler.reactionTickets.put(msg.getId(), cmdInterface);
+                } catch (Exception e) {
+                    //DO NOTHING
                 }
             }
 

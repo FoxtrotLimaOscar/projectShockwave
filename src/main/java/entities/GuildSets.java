@@ -79,4 +79,16 @@ public class GuildSets {
             return 50;
         }
     }
+
+
+
+    public void setMusicChannel(MusicChannel channel) {
+        item("MUSICCHANNEL").put(channel);
+    }
+    public MusicChannel getMusicChannel() {
+        if (item("MUSICCHANNEL").exists()) {
+            return item("MUSICCHANNEL").get(MusicChannel.class);
+        }
+        return new MusicChannel(guild.getDefaultChannel());
+    }
 }

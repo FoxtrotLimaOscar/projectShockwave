@@ -2,12 +2,13 @@ package entities;
 
 
 import net.dv8tion.jda.core.entities.Channel;
+import net.dv8tion.jda.core.entities.TextChannel;
 import settings.BotConfig;
 
 public class MusicChannel {
-    private Channel channel;
+    private TextChannel channel;
     private boolean forced = BotConfig.getDefaultForcedMC();
-    public MusicChannel(Channel channel) {
+    public MusicChannel(TextChannel channel) {
         this.channel = channel;
     }
     public boolean isForced() {
@@ -16,10 +17,10 @@ public class MusicChannel {
     public void setForced(boolean forced) {
         this.forced = forced;
     }
-    public Channel getChannel() {
+    public TextChannel getTextChannel() {
         return this.channel;
     }
-    public void setChannel(Channel channel) {
+    public void setChannel(TextChannel channel) {
         this.channel = channel;
     }
 }

@@ -1,6 +1,7 @@
 package core;
 
 import commands.CmdHandler;
+import commands.CmdInterface;
 import commands.information.*;
 import commands.music.*;
 import commands.management.*;
@@ -54,6 +55,9 @@ public class Main {
         CmdHandler.commands.put("help", new CmdHelp());
         CmdHandler.commands.put("settings", new CmdSettings());
         CmdHandler.commands.put("play", new CmdPlay());
+        CmdHandler.commands.put("shuffle", new CmdShuffle());
+        CmdHandler.commands.put("skip", new CmdSkip());
+        CmdHandler.commands.put("stop", new CmdStop());
     }
 
 

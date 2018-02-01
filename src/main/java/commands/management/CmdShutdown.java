@@ -4,9 +4,12 @@ import commands.CmdHandler;
 import commands.CmdInterface;
 import commands.Command;
 import core.Permission;
+import entities.GuildSets;
 import entities.ReactEvent;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
+import settings.Database;
 import tools.MsgPresets;
 
 public class CmdShutdown implements CmdInterface {
@@ -33,6 +36,7 @@ public class CmdShutdown implements CmdInterface {
             Message msg = reactEvent.getMessage();
             msg.editMessage(MsgPresets.Shutdown()).complete();
             msg.clearReactions().complete();
+            shutdownWarn(reactEvent.getMessage().getGuild());
             System.exit(1);
         }
         if (reactEvent.getEmote().equals("❌") && sameUser) {
@@ -49,5 +53,12 @@ public class CmdShutdown implements CmdInterface {
     @Override
     public String description() {
         return "Fährt den Bot herunter";
+    }
+
+    public static void shutdownWarn(Guild exception) {
+        for (Guild index : exception.getJDA().getGuilds()) {
+            GuildSets guildSettings = Database.getGuildSets(index);
+            if (guildSettings.getBootMessage()) guildSettings.getBotChannel().sendMessage(MsgPresets.Shutdown()).complete();
+        }
     }
 }
