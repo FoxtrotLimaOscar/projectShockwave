@@ -8,13 +8,17 @@ public class Statics {
     // first number             big changes
     // second number       small changes
     // third number            bugfixes
-    public final String VERSION_NUMBER = "1.3.1";
+    public final String VERSION_NUMBER = "1.4.0";
 
     // The name of the current version (second and third number)
     public final String VERSION_NAME = "justChillin";
 
     //The Timecode the bot started running
     public static Date BOT_LASTRESTART;
+
+
+    //Database accesses
+    public static int databaseAccesses = 0;
 
     // All static YouTube playlists
     public static final String YTPLY_THEFATRAT = "https://www.youtube.com/playlist?list=PLrKKVx01xqZYfm2MicuFB5SIpw3KfWaAH";

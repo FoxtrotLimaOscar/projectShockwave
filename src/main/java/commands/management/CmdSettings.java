@@ -61,7 +61,7 @@ public class CmdSettings implements CmdInterface {
 
     @Override
     public String description() {
-        return null;
+        return "Übersicht aller Einstellungen";
     }
 
     private MessageEmbed getPageContent() {

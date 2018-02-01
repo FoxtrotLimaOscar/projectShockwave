@@ -1,6 +1,7 @@
 package settings;
 
 import com.toddway.shelf.Shelf;
+import core.Statics;
 import entities.BotSets;
 import entities.GuildSets;
 import entities.UserSets;
@@ -18,14 +19,17 @@ public class Database {
     }
 
     public static GuildSets getGuildSets(Guild guild) {
+        Statics.databaseAccesses++;
         return new GuildSets(guild, "GUILD-" + guild.getId() + "/");
     }
 
     public static UserSets getUserSets(User user) {
+        Statics.databaseAccesses++;
         return new UserSets(user, "USER-" + user.getId() + "/");
     }
 
     public static BotSets getBot() {
+        Statics.databaseAccesses++;
         return new BotSets();
     }
 }

@@ -93,7 +93,7 @@ public class PlayerManager {
                 AudioTrackInfo info = playlist.getTracks().get(0).getInfo();
                 if (gonnaQueue.size() > 1) {
                     msg = channel.sendMessage(MsgPresets.musicQueuedInfo(true, playlist.getName(), info.uri)).complete();
-                } else if (activeQueue.isEmpty()) {
+                } else if (!activeQueue.isEmpty()) {
                     msg = channel.sendMessage(MsgPresets.musicQueuedInfo(false, info.title, info.uri)).complete();
                 }
                 try {

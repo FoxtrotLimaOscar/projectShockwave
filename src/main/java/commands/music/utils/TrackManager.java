@@ -79,6 +79,8 @@ public class TrackManager extends AudioEventAdapter {
                     guild.getAudioManager().closeAudioConnection();
                 }
             }, 0);
+        } else {
+            player.playTrack(queue.element().getTrack());
         }
     }
 }
