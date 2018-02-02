@@ -1,7 +1,7 @@
 package commands;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import settings.Database;
+import core.database.Database;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -16,7 +16,7 @@ public class Command {
     public Command(MessageReceivedEvent event) {
         this.event = event;
         this.raw = this.event.getMessage().getContentRaw();
-        this.beheaded = this.raw.replaceFirst(Database.getGuildSets(event.getGuild()).getPrefix() + "", "");
+        this.beheaded = this.raw.replaceFirst(Database.getGuild(event.getGuild()).getPrefix() + "", "");
         this.sliced = this.beheaded.split(" ");
     }
 

@@ -4,14 +4,13 @@ import commands.CmdInterface;
 import commands.Command;
 import commands.music.utils.PlayerManager;
 import core.Permission;
-import entities.GuildSets;
+import core.database.groups.GSettings;
 import entities.ReactEvent;
 import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import settings.Database;
+import core.database.Database;
 import tools.MsgPresets;
 
 public class CmdPlay implements CmdInterface {
@@ -30,7 +29,7 @@ public class CmdPlay implements CmdInterface {
         this.user = event.getAuthor();
         this.guild = event.getGuild();
         TextChannel tChan = event.getTextChannel();
-        GuildSets guildsettings = Database.getGuildSets(this.guild);
+        GSettings guildsettings = Database.getGuild(this.guild);
         if (cmd.hasParam(1)) {
             String identifier = cmd.getRaw(1);
             if (!(identifier.startsWith("http://") || identifier.startsWith("https://"))) {

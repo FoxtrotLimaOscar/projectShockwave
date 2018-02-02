@@ -1,5 +1,6 @@
 package core;
 
+import java.awt.*;
 import java.util.Date;
 
 public class Statics {
@@ -8,7 +9,7 @@ public class Statics {
     // first number             big changes
     // second number       small changes
     // third number            bugfixes
-    public final String VERSION_NUMBER = "1.4.0";
+    public final String VERSION_NUMBER = "1.4.1";
 
     // The name of the current version (second and third number)
     public final String VERSION_NAME = "justChillin";
@@ -30,4 +31,8 @@ public class Statics {
     public static final String SYMBOL_PERMISSION_DJ = "\uD83C\uDFA7";
     public static final String SYMBOL_PERMISSION_ADMIN = "\uD83D\uDD35";
     public static final String SYMBOL_PERMISSION_NONE = "\uD83D\uDEAB";
+    public static final Color COLOR_PERMISSION_BOT = Color.RED;
+    public static final Color COLOR_PERMISSION_DJ = Color.MAGENTA;
+    public static final Color COLOR_PERMISSION_ADMIN = Color.ORANGE;
+    public static final Color COLOR_PERMISSION_NONE = Color.LIGHT_GRAY;
 }

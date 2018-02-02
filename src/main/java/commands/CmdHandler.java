@@ -31,7 +31,7 @@ public class CmdHandler {
             }
 
             try {
-                event.getJDA().getTextChannelById(BotConfig.getLogchannelId()).sendMessage(MsgPresets.logCmd(event, permissionGranted)).queue();
+                event.getJDA().getTextChannelById(BotConfig.getLogchannelId()).sendMessage(MsgPresets.logCmd(event, permissionGranted, permission)).queue();
             } catch (IllegalArgumentException e) {
                 //DO NOTHING
             }

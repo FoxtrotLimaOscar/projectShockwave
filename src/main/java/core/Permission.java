@@ -3,7 +3,7 @@ package core;
 import entities.DJRole;
 import net.dv8tion.jda.core.entities.Member;
 import settings.BotConfig;
-import settings.Database;
+import core.database.Database;
 
 import java.util.Arrays;
 
@@ -26,7 +26,7 @@ public enum Permission {
                 }
                 break;
             case "DJ":
-                DJRole djr =Database.getGuildSets(member.getGuild()).getDJRole();
+                DJRole djr =Database.getGuild(member.getGuild()).getDJRole();
                 if (!djr.isForced() || member.getRoles().contains(djr.getRole())) {
                     return true;
                 }

@@ -1,16 +1,18 @@
-package entities;
+package core.database.groups;
 
 import com.toddway.shelf.ShelfItem;
+import entities.DJRole;
+import entities.MusicChannel;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 import settings.BotConfig;
-import settings.Database;
+import core.database.Database;
 
-public class GuildSets {
+public class GSettings {
     private Guild guild;
     private String path;
 
-    public GuildSets(Guild guild, String path) {
+    public GSettings(Guild guild, String path) {
         this.guild = guild;
         this.path = path;
     }

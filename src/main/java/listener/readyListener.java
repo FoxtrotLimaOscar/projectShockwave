@@ -5,7 +5,7 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import settings.Database;
+import core.database.Database;
 import tools.MsgPresets;
 import tools.Table;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class readyListener extends ListenerAdapter {
             Enum[] align = {Table.ALIGN.LEFT, Table.ALIGN.CENTER, Table.ALIGN.RIGHT, Table.ALIGN.RIGHT};
             Table table = new Table("ProjectShockwave is running on following guilds:", desc, sizes, align);
             for(Guild guild : jda.getGuilds()) {
-                String[] column = {guild.getName(), guild.getId(), guild.getMembers().size() + "", Database.getGuildSets(guild).getPrefix()+ ""};
+                String[] column = {guild.getName(), guild.getId(), guild.getMembers().size() + "", Database.getGuild(guild).getPrefix()+ ""};
                 table.addColumn(column);
             }
             Thread.sleep(500);
@@ -37,8 +37,8 @@ public class readyListener extends ListenerAdapter {
 
     private void messageGuilds(JDA jda) {
         for (Guild guild : jda.getGuilds()) {
-            if(Database.getGuildSets(guild).getBootMessage()) {
-                Database.getGuildSets(guild).getBotChannel().sendMessage(MsgPresets.Bootup(guild)).queue();
+            if(Database.getGuild(guild).getBootMessage()) {
+                Database.getGuild(guild).getBotChannel().sendMessage(MsgPresets.Bootup(guild)).queue();
             }
         }
     }

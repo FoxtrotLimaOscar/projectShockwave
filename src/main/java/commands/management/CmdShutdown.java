@@ -4,12 +4,12 @@ import commands.CmdHandler;
 import commands.CmdInterface;
 import commands.Command;
 import core.Permission;
-import entities.GuildSets;
+import core.database.groups.GSettings;
 import entities.ReactEvent;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
-import settings.Database;
+import core.database.Database;
 import tools.MsgPresets;
 
 public class CmdShutdown implements CmdInterface {
@@ -38,10 +38,11 @@ public class CmdShutdown implements CmdInterface {
             msg.clearReactions().complete();
             shutdownWarn(reactEvent.getMessage().getGuild());
             System.exit(1);
-        }
-        if (reactEvent.getEmote().equals("❌") && sameUser) {
+        } else if (reactEvent.getEmote().equals("❌") && sameUser) {
             Message msg = reactEvent.getMessage();
             msg.delete().queue();
+        } else {
+            CmdHandler.commands.put(reactEvent.getMessageID(), this);
         }
     }
 
@@ -57,7 +58,7 @@ public class CmdShutdown implements CmdInterface {
 
     public static void shutdownWarn(Guild exception) {
         for (Guild index : exception.getJDA().getGuilds()) {
-            GuildSets guildSettings = Database.getGuildSets(index);
+            GSettings guildSettings = Database.getGuild(index);
             if (guildSettings.getBootMessage()) guildSettings.getBotChannel().sendMessage(MsgPresets.Shutdown()).complete();
         }
     }

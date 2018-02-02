@@ -1,16 +1,16 @@
-package entities;
+package core.database.groups;
 
 import com.toddway.shelf.ShelfItem;
 import net.dv8tion.jda.core.entities.User;
-import settings.Database;
+import core.database.Database;
 
 import java.util.ArrayList;
 
-public class UserSets {
+public class USettings {
     private User user;
     private String path;
 
-    public UserSets(User user, String path) {
+    public USettings(User user, String path) {
         this.user = user;
         this.path = path;
     }

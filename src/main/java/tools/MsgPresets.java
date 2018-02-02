@@ -1,17 +1,16 @@
 package tools;
 
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import commands.CmdHandler;
-import commands.music.utils.AudioInfo;
 import core.Permission;
-import entities.BotSets;
-import entities.GuildSets;
-import entities.UserSets;
+import core.Statics;
+import core.database.groups.BSettings;
+import core.database.groups.GSettings;
+import core.database.groups.USettings;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import settings.Database;
+import core.database.Database;
 
 import java.awt.*;
 public class MsgPresets extends EmbedBuilder {
@@ -30,15 +29,30 @@ public class MsgPresets extends EmbedBuilder {
 
 
 
-    public static MessageEmbed logCmd(MessageReceivedEvent event, boolean allowed) {
+    public static MessageEmbed logCmd(MessageReceivedEvent event, boolean allowed, Permission permission) {
         String allowedText;
         if (allowed) {
             allowedText = "permission granted";
         } else {
             allowedText = "permission rejected";
         }
+        Color color = null;
+        switch (permission.toString()) {
+            case "DJ":
+                color = Statics.COLOR_PERMISSION_DJ;
+                break;
+            case "ADMIN":
+                color = Statics.COLOR_PERMISSION_ADMIN;
+                break;
+            case "BOT":
+                color = Statics.COLOR_PERMISSION_BOT;
+                break;
+            default:
+                color = Statics.COLOR_PERMISSION_NONE;
+                break;
+        }
         return new EmbedBuilder()
-                .setColor(Color.orange)
+                .setColor(color)
                 .setTitle(event.getMessage().getContentDisplay())
                 .addField("User", event.getAuthor().getAsMention(),true)
                 .addField("Guild", event.getGuild().getName(), true)
@@ -147,7 +161,7 @@ public class MsgPresets extends EmbedBuilder {
                 .build();
     }
     public static MessageEmbed settingsPageUser(User user) {
-        UserSets usersettings = Database.getUserSets(user);
+        USettings usersettings = Database.getUser(user);
         return new EmbedBuilder()
                 .setColor(defaultColor)
                 .setTitle("⚙ - USER EINSTELLUNGEN")
@@ -156,7 +170,7 @@ public class MsgPresets extends EmbedBuilder {
                 .build();
     }
     public static MessageEmbed settingsPageGuild(Guild guild) {
-        GuildSets guilsettings = Database.getGuildSets(guild);
+        GSettings guilsettings = Database.getGuild(guild);
         return new EmbedBuilder()
                 .setColor(defaultColor)
                 .setTitle("⚙ - GUILD EINSTELLUNGEN")
@@ -171,7 +185,7 @@ public class MsgPresets extends EmbedBuilder {
                 .build();
     }
     public static MessageEmbed settingsPageBot() {
-        BotSets botsettings = Database.getBot();
+        BSettings botsettings = Database.getBot();
         return new EmbedBuilder()
                 .setColor(defaultColor)
                 .setTitle("⚙ - BOT EINSTELLUNGEN")

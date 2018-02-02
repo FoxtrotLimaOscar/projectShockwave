@@ -15,7 +15,7 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
-import settings.Database;
+import core.database.Database;
 import tools.MsgPresets;
 import tools.SubsToolkit;
 
@@ -65,7 +65,7 @@ public class PlayerManager {
 
 
         //TODO Einstellbar machen
-        player.setVolume(Database.getGuildSets(guild).getVolume());
+        player.setVolume(Database.getGuild(guild).getVolume());
         //TODO: Einstellbar machen
         MANAGER.setFrameBufferDuration(15000);
         MANAGER.loadItemOrdered(guild, identifier, new AudioLoadResultHandler() {

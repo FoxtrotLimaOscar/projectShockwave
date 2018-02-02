@@ -1,10 +1,10 @@
-package entities;
+package core.database.groups;
 
 import com.toddway.shelf.ShelfItem;
 import net.dv8tion.jda.core.entities.Game;
-import settings.Database;
+import core.database.Database;
 
-public class BotSets {
+public class BSettings {
     private String path = "BOT/";
 
     private ShelfItem item(String key) {
