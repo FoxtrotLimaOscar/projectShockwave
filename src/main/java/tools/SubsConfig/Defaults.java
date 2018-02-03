@@ -12,6 +12,10 @@ public class Defaults {
         this.lines.add("#" + description);
         return this;
     }
+    public Defaults addFreeLine() {
+        this.lines.add("");
+        return this;
+    }
     public ArrayList<String> asLines() {
         return lines;
     }

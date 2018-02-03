@@ -1,10 +1,11 @@
 package settings;
 
-import core.Main;
-import net.dv8tion.jda.core.entities.Channel;
 import tools.BooleanTools;
-import tools.Configuration;
 import tools.StringTools;
+import tools.SubsConfig.Config;
+import tools.SubsConfig.ConfigItem;
+import tools.SubsConfig.Defaults;
+import tools.SubsToolkit;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,143 +13,108 @@ import java.util.Scanner;
 
 public class BotConfig {
 
-    private static  String tokenTakeFirst;
-    private static String[] tokenCodes = new String[3];
-    private static String[] tokenNames = new String[3];
-    private static String[] botOperatorIds = new String[3];
-    private static String defaultForcedMC;
-    private static String defaultPrefix;
-    private static String defaultVolume;
-    private static String defaultBootMessage;
-    private static String playlistLimit;
-    private static String logchannelId;
-    private static String logAll;
+    private static File file = new File("config.txt");
+    private static Config config = new Config(file, getDefaults());
 
-    public static void loadBotSettings() {
-        //Create default properties
-        ArrayList <String> defaults = new ArrayList<String>();
-        defaults.add("token-take-first=false");
-        defaults.add("token-code-1=________________________.______.___________________________");
-        defaults.add("token-name-1=Default name");
-        defaults.add("token-code-2=");
-        defaults.add("token-name-2=");
-        defaults.add("token-code-3=");
-        defaults.add("token-name-3=");
-        defaults.add("");
-        defaults.add("botoperator-id-1=");
-        defaults.add("botoperator-id-2=");
-        defaults.add("botoperator-id-3=");
-        defaults.add("");
-        defaults.add("default-forcedmusicchannel=false");
-        defaults.add("default-prefix=#");
-        defaults.add("default-volume=100");
-        defaults.add("default-bootmessage=true");
-        defaults.add("");
-        defaults.add("playlist-limit=-1");
-        defaults.add("log-channel-id=");
+    public static boolean securityCheck(){
+        String error = null;
+        if (config.checkSingle(keys.STARTOPTIONS_AUTO)) {
+            error = keys.STARTOPTIONS_NAMES.toString() + "must have a value";
+        }
+        if (config.checkArray(keys.STARTOPTIONS_NAMES)) {
+            error = keys.STARTOPTIONS_NAMES.toString() + " must contain at least one value";
+        }
+        if (config.checkArray(keys.STARTOPTIONS_TOKENS)) {
+            error = keys.STARTOPTIONS_TOKENS.toString() + " must contain at least one value";
+        }
+        if (config.item(keys.STARTOPTIONS_TOKENS).getArray().size() != config.item(keys.STARTOPTIONS_NAMES).getArray().size()) {
+            error = keys.STARTOPTIONS_TOKENS.toString() + " and " + keys.STARTOPTIONS_NAMES + "must have the same length";
+        }
+        if (config.checkArray(keys.BOTOWNERIDS)) {
+            error = keys.BOTOWNERIDS.toString() + " must contain at least one value";
+        }
 
-        File file = new File("config.txt");
-        Configuration config = new Configuration(file, defaults);
-
-        tokenTakeFirst = config.get("token-take-first");
-        tokenCodes[0] = config.get("token-code-1");
-        tokenNames[0] = config.get("token-name-1");
-        tokenCodes[1] = config.get("token-code-2");
-        tokenNames[1] = config.get("token-name-2");
-        tokenCodes[2] = config.get("token-code-3");
-        tokenNames[2] = config.get("token-name-3");
-        botOperatorIds[0] = config.get("botoperator-id-1");
-        botOperatorIds[1] = config.get("botoperator-id-2");
-        botOperatorIds[2] = config.get("botoperator-id-3");
-        defaultForcedMC = config.get("default-forcedmusicchannel");
-        defaultPrefix = config.get("default-prefix");
-        defaultVolume = config.get("default-volume");
-        defaultBootMessage = config.get("default-bootmessage");
-        playlistLimit = config.get("playlist-limit");
-        logchannelId = config.get("log-channel-id");
-
-        securityCheck();
-    }
-
-    private static void securityCheck(){
-        if(!(doRequieredExist() && rightParameters())) {
+        if (error != null) {
+            System.out.println("Error with config.txt" + error);
             System.exit(1);
-        }
-    }
-
-    private static boolean doRequieredExist() {
-        if (!StringTools.isBoolean(tokenTakeFirst)
-                && StringTools.isEmpty(tokenCodes[0])
-                && StringTools.isEmpty(tokenNames[0])
-                && StringTools.isEmpty(botOperatorIds[0])
-                && !StringTools.isBoolean(defaultForcedMC)
-                && StringTools.isEmpty(defaultPrefix)
-                && StringTools.isEmpty(defaultVolume)
-                && StringTools.isEmpty(playlistLimit)) {
-            System.out.println("Invalid or missing arguments in config.txt file");
             return false;
-        }
-        return true;
-    }
-
-    private static boolean rightParameters() {
-        if(getDefaultVolume() > 200 || getDefaultVolume() < 0) {
-            System.out.println("The default-volume should be between 0 and 200");
-            return false;
-        } else if (getPlaylistLimit() < -1) {
-            System.out.println("The playlist-limit must be -1 or more");
         }
         return true;
     }
 
     public static String getToken() {
         int selection = 0;
-        if(!BooleanTools.getBoolFromString(tokenTakeFirst)) {
+        ArrayList<String> names = getStartoptionsNames();
+        if(!getStartoptionsAuto()) {
             Scanner scanner = new Scanner(System.in);
-            String[] readableNames = StringTools.removeEmpty(tokenNames);
             boolean accept = false;
             System.out.print("Choose the token the BOT will start with\n");
             while (!accept) {
-                for(int index = 0; index < readableNames.length; index++) {
-                    System.out.print((index + 1) + ": \"" + readableNames[index] + "\"\n");
+                for(int index = 0; index < names.size(); index++) {
+                    System.out.print((index + 1) + ": \"" + names.get(index) + "\"\n");
                 }
                 selection = scanner.nextInt() - 1;
-                if(selection > -1 && selection < readableNames.length) {
+                if(selection >= 0 && selection < names.size()) {
                     accept = true;
                 } else {
                     System.out.print(StringTools.spacer(20, ' ') + "Incorrect selection, try again\n");
                 }
             }
         }
-        System.out.println("The BOT will start as \"" + tokenNames[selection] + "\".\n");
-        return tokenCodes[selection];
+        System.out.println("The BOT will start as \"" + names.get(selection) + "\".\n");
+        return getStartoptionsTokens().get(selection);
     }
 
-    public static String[] getBotOperatorIds() {
-        return botOperatorIds;
+    private static boolean getStartoptionsAuto() {
+        return SubsToolkit.getBoolFromString(config.item(keys.STARTOPTIONS_AUTO).getLine());
     }
-
+    private static ArrayList<String> getStartoptionsTokens() {
+        return config.item(keys.STARTOPTIONS_TOKENS).getArray();
+    }
+    private static ArrayList<String> getStartoptionsNames() {
+        return config.item(keys.STARTOPTIONS_NAMES).getArray();
+    }
+    public static ArrayList<String> getBotownerIds() {
+        return config.item(keys.BOTOWNERIDS).getArray();
+    }
     public static boolean getDefaultForcedMC() {
-        return BooleanTools.getBoolFromString(defaultForcedMC);
+        return BooleanTools.getBoolFromString(config.item(keys.DEFAULT_FORCEDMC).getSingle());
     }
-
     public static String getDefaultPrefix() {
-        return defaultPrefix;
+        return config.item(keys.DEFAULT_PREFIX).getSingle();
     }
-
     public static int getDefaultVolume() {
-        return Integer.parseInt(defaultVolume);
+        return Integer.parseInt(config.item(keys.DEFAULT_VOLUME).getSingle());
     }
-
     public static boolean getDefaultBootMessage() {
-        return BooleanTools.getBoolFromString(defaultBootMessage);
+        return BooleanTools.getBoolFromString(config.item(keys.DEFAULT_SENDBOOTMESSAGE).getSingle());
     }
-
     public static int getPlaylistLimit() {
-        return Integer.parseInt(playlistLimit);
+        return Integer.parseInt(config.item(keys.DEFAULT_PLAYLISTLIMIT).getSingle());
+    }
+    public static String getLogchannelId() {
+        return config.item(keys.LOGCHANNELID).getSingle();
     }
 
-    public static String getLogchannelId() {
-        return logchannelId;
+
+    private static Defaults getDefaults() {
+        Defaults defaults = new Defaults();
+        defaults.add(new ConfigItem(keys.STARTOPTIONS_AUTO, "false"));
+        defaults.add(new ConfigItem(keys.STARTOPTIONS_TOKENS, "exampletoken1;"));
+        defaults.add(new ConfigItem(keys.STARTOPTIONS_NAMES, "examplename1;"));
+        defaults.add(new ConfigItem(keys.BOTOWNERIDS, "exampleuserid1;"));
+        defaults.add(new ConfigItem(keys.LOGCHANNELID, ""));
+        defaults.addFreeLine();
+        defaults.add(new ConfigItem(keys.DEFAULT_FORCEDMC, "false"));
+        defaults.add(new ConfigItem(keys.DEFAULT_PREFIX, "#"));
+        defaults.add(new ConfigItem(keys.DEFAULT_VOLUME, "100"));
+        defaults.add(new ConfigItem(keys.DEFAULT_SENDBOOTMESSAGE, "true"));
+        defaults.add(new ConfigItem(keys.DEFAULT_PLAYLISTLIMIT, "50"));
+        return defaults;
+    }
+
+    private enum keys {
+        STARTOPTIONS_AUTO, STARTOPTIONS_TOKENS, STARTOPTIONS_NAMES, BOTOWNERIDS, LOGCHANNELID, DEFAULT_FORCEDMC, DEFAULT_PREFIX,
+        DEFAULT_VOLUME, DEFAULT_SENDBOOTMESSAGE, DEFAULT_PLAYLISTLIMIT;
     }
 }

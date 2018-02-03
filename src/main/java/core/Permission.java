@@ -16,7 +16,7 @@ public enum Permission {
     public static boolean hasPermission(Member member, Enum permission) {
         switch (permission.toString()) {
             case "BOT":
-                if (Arrays.asList(BotConfig.getBotOperatorIds()).contains(member.getUser().getId())){
+                if (Arrays.asList(BotConfig.getBotownerIds()).contains(member.getUser().getId())){
                     return true;
                 }
                 break;

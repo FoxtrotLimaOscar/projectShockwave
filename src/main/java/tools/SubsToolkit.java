@@ -15,4 +15,7 @@ public class SubsToolkit {
             return x;
         }
     }
+    public static boolean getBoolFromString(String input) {
+        return input.toLowerCase().equals("true");
+    }
 }

@@ -30,7 +30,6 @@ public class Main {
 
 
         Database.load();
-        BotConfig.loadBotSettings();
 
 
         //Builder setup
