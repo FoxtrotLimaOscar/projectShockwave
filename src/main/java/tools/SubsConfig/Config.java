@@ -27,23 +27,11 @@ public class Config {
         }
         return null;
     }
-    public ConfigItem item(Enum key) {
-        if (this.items.containsKey(key.toString())) {
-            return this.items.get(key.toString());
-        }
-        return null;
-    }
     public boolean checkArray(String key) {
         return this.items.containsKey(key) && this.items.get(key).hasArray();
     }
-    public boolean checkArray(Enum key) {
-        return this.items.containsKey(key.toString()) && this.items.get(key.toString()).hasArray();
-    }
     public boolean checkSingle(String key) {
         return this.items.containsKey(key) && this.items.get(key).hasSingle();
-    }
-    public boolean checkSingle(Enum key) {
-        return this.items.containsKey(key.toString()) && this.items.get(key.toString()).hasSingle();
     }
 
 

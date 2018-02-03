@@ -18,20 +18,20 @@ public class BotConfig {
 
     public static boolean securityCheck(){
         String error = null;
-        if (config.checkSingle(keys.STARTOPTIONS_AUTO)) {
-            error = keys.STARTOPTIONS_NAMES.toString() + "must have a value";
+        if (config.checkSingle(STARTOPTIONS_AUTO)) {
+            error = STARTOPTIONS_NAMES + "must have a value";
         }
-        if (config.checkArray(keys.STARTOPTIONS_NAMES)) {
-            error = keys.STARTOPTIONS_NAMES.toString() + " must contain at least one value";
+        if (config.checkArray(STARTOPTIONS_NAMES)) {
+            error = STARTOPTIONS_NAMES + " must contain at least one value";
         }
-        if (config.checkArray(keys.STARTOPTIONS_TOKENS)) {
-            error = keys.STARTOPTIONS_TOKENS.toString() + " must contain at least one value";
+        if (config.checkArray(STARTOPTIONS_TOKENS)) {
+            error = STARTOPTIONS_TOKENS + " must contain at least one value";
         }
-        if (config.item(keys.STARTOPTIONS_TOKENS).getArray().size() != config.item(keys.STARTOPTIONS_NAMES).getArray().size()) {
-            error = keys.STARTOPTIONS_TOKENS.toString() + " and " + keys.STARTOPTIONS_NAMES + "must have the same length";
+        if (config.item(STARTOPTIONS_TOKENS).getArray().size() != config.item(STARTOPTIONS_NAMES).getArray().size()) {
+            error = STARTOPTIONS_TOKENS + " and " + STARTOPTIONS_NAMES + "must have the same length";
         }
-        if (config.checkArray(keys.BOTOWNERIDS)) {
-            error = keys.BOTOWNERIDS.toString() + " must contain at least one value";
+        if (config.checkArray(BOTOWNERIDS)) {
+            error = BOTOWNERIDS + " must contain at least one value";
         }
 
         if (error != null) {
@@ -66,55 +66,65 @@ public class BotConfig {
     }
 
     private static boolean getStartoptionsAuto() {
-        return SubsToolkit.getBoolFromString(config.item(keys.STARTOPTIONS_AUTO).getLine());
+        return SubsToolkit.getBoolFromString(config.item(STARTOPTIONS_AUTO).getLine());
     }
     private static ArrayList<String> getStartoptionsTokens() {
-        return config.item(keys.STARTOPTIONS_TOKENS).getArray();
+        return config.item(STARTOPTIONS_TOKENS).getArray();
     }
     private static ArrayList<String> getStartoptionsNames() {
-        return config.item(keys.STARTOPTIONS_NAMES).getArray();
+        return config.item(STARTOPTIONS_NAMES).getArray();
     }
     public static ArrayList<String> getBotownerIds() {
-        return config.item(keys.BOTOWNERIDS).getArray();
+        return config.item(BOTOWNERIDS).getArray();
     }
     public static boolean getDefaultForcedMC() {
-        return BooleanTools.getBoolFromString(config.item(keys.DEFAULT_FORCEDMC).getSingle());
+        return BooleanTools.getBoolFromString(config.item(DEFAULT_FORCEDMC).getSingle());
     }
     public static String getDefaultPrefix() {
-        return config.item(keys.DEFAULT_PREFIX).getSingle();
+        return config.item(DEFAULT_PREFIX).getSingle();
     }
     public static int getDefaultVolume() {
-        return Integer.parseInt(config.item(keys.DEFAULT_VOLUME).getSingle());
+        return Integer.parseInt(config.item(DEFAULT_VOLUME).getSingle());
     }
     public static boolean getDefaultBootMessage() {
-        return BooleanTools.getBoolFromString(config.item(keys.DEFAULT_SENDBOOTMESSAGE).getSingle());
+        return BooleanTools.getBoolFromString(config.item(DEFAULT_SENDBOOTMESSAGE).getSingle());
     }
     public static int getPlaylistLimit() {
-        return Integer.parseInt(config.item(keys.DEFAULT_PLAYLISTLIMIT).getSingle());
+        return Integer.parseInt(config.item(DEFAULT_PLAYLISTLIMIT).getSingle());
     }
     public static String getLogchannelId() {
-        return config.item(keys.LOGCHANNELID).getSingle();
+        return config.item(LOGCHANNELID).getSingle();
     }
 
 
     private static Defaults getDefaults() {
         Defaults defaults = new Defaults();
-        defaults.add(new ConfigItem(keys.STARTOPTIONS_AUTO, "false"));
-        defaults.add(new ConfigItem(keys.STARTOPTIONS_TOKENS, "exampletoken1;"));
-        defaults.add(new ConfigItem(keys.STARTOPTIONS_NAMES, "examplename1;"));
-        defaults.add(new ConfigItem(keys.BOTOWNERIDS, "exampleuserid1;"));
-        defaults.add(new ConfigItem(keys.LOGCHANNELID, ""));
+        defaults.addDescription("Single Example");
+        defaults.addDescription("EXAMPLE_SINGEL=singleitem");
+        defaults.addDescription("Array Example");
+        defaults.addDescription("EXAMPLE_ARRAY=firstitem;seconditem;thirditem;");
+        defaults.add(new ConfigItem(STARTOPTIONS_AUTO, "false"));
+        defaults.add(new ConfigItem(STARTOPTIONS_TOKENS, "exampletoken1;"));
+        defaults.add(new ConfigItem(STARTOPTIONS_NAMES, "examplename1;"));
+        defaults.add(new ConfigItem(BOTOWNERIDS, "exampleuserid1;"));
+        defaults.add(new ConfigItem(LOGCHANNELID, ""));
         defaults.addFreeLine();
-        defaults.add(new ConfigItem(keys.DEFAULT_FORCEDMC, "false"));
-        defaults.add(new ConfigItem(keys.DEFAULT_PREFIX, "#"));
-        defaults.add(new ConfigItem(keys.DEFAULT_VOLUME, "100"));
-        defaults.add(new ConfigItem(keys.DEFAULT_SENDBOOTMESSAGE, "true"));
-        defaults.add(new ConfigItem(keys.DEFAULT_PLAYLISTLIMIT, "50"));
+        defaults.add(new ConfigItem(DEFAULT_FORCEDMC, "false"));
+        defaults.add(new ConfigItem(DEFAULT_PREFIX, "#"));
+        defaults.add(new ConfigItem(DEFAULT_VOLUME, "100"));
+        defaults.add(new ConfigItem(DEFAULT_SENDBOOTMESSAGE, "true"));
+        defaults.add(new ConfigItem(DEFAULT_PLAYLISTLIMIT, "50"));
         return defaults;
     }
 
-    private enum keys {
-        STARTOPTIONS_AUTO, STARTOPTIONS_TOKENS, STARTOPTIONS_NAMES, BOTOWNERIDS, LOGCHANNELID, DEFAULT_FORCEDMC, DEFAULT_PREFIX,
-        DEFAULT_VOLUME, DEFAULT_SENDBOOTMESSAGE, DEFAULT_PLAYLISTLIMIT;
-    }
+    private static final String STARTOPTIONS_AUTO = "STARTOPTIONS_AUTO";
+    private static final String STARTOPTIONS_TOKENS = "STARTOPTIONS_TOKENS";
+    private static final String STARTOPTIONS_NAMES = "STARTOPTIONS_NAMES";
+    private static final String BOTOWNERIDS = "BOTOWNERIDS";
+    private static final String LOGCHANNELID = "LOGCHANNELID";
+    private static final String DEFAULT_FORCEDMC = "DEFAULT_FORCEDMC";
+    private static final String DEFAULT_PREFIX = "DEFAULT_PREFIX";
+    private static final String DEFAULT_VOLUME = "DEFAULT_VOLUME";
+    private static final String DEFAULT_SENDBOOTMESSAGE = "DEFAULT_SENDBOOTMESSAGE";
+    private static final String DEFAULT_PLAYLISTLIMIT = "DEFAULT_PLAYLISTLIMIT";
 }

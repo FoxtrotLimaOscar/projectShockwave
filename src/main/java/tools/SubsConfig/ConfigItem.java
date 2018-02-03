@@ -18,17 +18,6 @@ public class ConfigItem {
             this.value += value + ";";
         }
     }
-    public ConfigItem(Enum key, String value) {
-        this.key = key.toString();
-        this.value = value;
-    }
-    public ConfigItem(Enum key, ArrayList<String> values) {
-        this.key = key.toString();
-        this.value = "";
-        for (String value : values) {
-            this.value += value + ";";
-        }
-    }
     public ConfigItem(String line) {
         int index = line.indexOf("=");
         this.key = line.substring(0, index);
