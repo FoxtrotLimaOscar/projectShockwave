@@ -2,6 +2,7 @@ package commands.music;
 
 import commands.CmdInterface;
 import commands.Command;
+import commands.ReactHandler;
 import commands.music.utils.PlayerManager;
 import core.Permission;
 import core.database.groups.GSettings;
@@ -11,9 +12,10 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import core.database.Database;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import tools.MsgPresets;
 
-public class CmdPlay implements CmdInterface {
+public class CmdPlay implements CmdInterface, ReactHandler {
 
     private Guild guild;
     private User user;
@@ -25,10 +27,10 @@ public class CmdPlay implements CmdInterface {
 
     @Override
     public void run(Command cmd) {
-        MessageReceivedEvent event = cmd.getEvent();
+        GuildMessageReceivedEvent event = cmd.getEvent();
         this.user = event.getAuthor();
         this.guild = event.getGuild();
-        TextChannel tChan = event.getTextChannel();
+        TextChannel tChan = event.getChannel();
         GSettings guildsettings = Database.getGuild(this.guild);
         if (cmd.hasParam(1)) {
             String identifier = cmd.getRaw(1);

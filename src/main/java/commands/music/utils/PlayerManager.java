@@ -11,6 +11,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import commands.CmdHandler;
 import commands.CmdInterface;
+import commands.ReactHandler;
 import commands.music.SearchResultHandler;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
@@ -57,13 +58,11 @@ public class PlayerManager {
         return !hasPlayer(guild) || getPlayer(guild).getPlayingTrack() == null;
     }
 
-    public static void loadTrack(String identifier, int selection, boolean shuffle, Member member, TextChannel channel, CmdInterface cmdInterface) {
+    public static void loadTrack(String identifier, int selection, boolean shuffle, Member member, TextChannel channel, ReactHandler reactHandler) {
         Guild guild = member.getGuild();
         AudioPlayer player = getPlayer(guild);
         ArrayList<AudioTrack> gonnaQueue = new ArrayList<>();
         Set<AudioInfo> activeQueue = PlayerManager.getTrackManager(guild).getQueue();
-        boolean sendInfo = !getTrackManager(guild).getQueue().isEmpty();
-
 
         //TODO Einstellbar machen
         player.setVolume(Database.getGuild(guild).getVolume());
@@ -99,7 +98,7 @@ public class PlayerManager {
                 }
                 try {
                     msg.addReaction("❌").queue();
-                    CmdHandler.reactionTickets.put(msg.getId(), cmdInterface);
+                    CmdHandler.reactionTickets.put(msg.getId(), reactHandler);
                 } catch (Exception e) {
                     //DO NOTHING
                 }
@@ -117,7 +116,8 @@ public class PlayerManager {
         });
     }
 
-    public void searchTrack(Guild guild, String identifier, SearchResultHandler handler) {
+    public static void searchTrack(Guild guild, String identifier, SearchResultHandler handler) {
+        getPlayer(guild);
         MANAGER.loadItemOrdered(guild, identifier, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {}

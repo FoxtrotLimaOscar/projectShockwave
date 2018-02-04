@@ -3,6 +3,7 @@ package commands.management;
 import commands.CmdHandler;
 import commands.CmdInterface;
 import commands.Command;
+import commands.ReactHandler;
 import core.Permission;
 import core.database.groups.GSettings;
 import entities.ReactEvent;
@@ -12,7 +13,7 @@ import net.dv8tion.jda.core.entities.User;
 import core.database.Database;
 import tools.MsgPresets;
 
-public class CmdShutdown implements CmdInterface {
+public class CmdShutdown implements CmdInterface, ReactHandler {
     private User user;
 
     @Override
@@ -22,7 +23,7 @@ public class CmdShutdown implements CmdInterface {
 
     @Override
     public void run(Command cmd) {
-        Message msg = cmd.getEvent().getTextChannel().sendMessage(MsgPresets.ShutdownAccept()).complete();
+        Message msg = cmd.getEvent().getChannel().sendMessage(MsgPresets.ShutdownAccept()).complete();
         msg.addReaction("✅").queue();
         msg.addReaction("❌").queue();
         CmdHandler.reactionTickets.put(msg.getId(), this);
@@ -42,7 +43,7 @@ public class CmdShutdown implements CmdInterface {
             Message msg = reactEvent.getMessage();
             msg.delete().queue();
         } else {
-            CmdHandler.commands.put(reactEvent.getMessageID(), this);
+            CmdHandler.reactionTickets.put(reactEvent.getMessageID(), this);
         }
     }
 

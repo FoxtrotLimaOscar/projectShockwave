@@ -17,12 +17,7 @@ public class CmdPing implements CmdInterface {
 
     @Override
     public void run(Command cmd) {
-        cmd.getEvent().getTextChannel().sendMessage(MsgPresets.Ping(cmd.getEvent().getJDA())).queue();
-    }
-
-    @Override
-    public void emoteUpdate(ReactEvent reactEvent) {
-
+        cmd.getEvent().getChannel().sendMessage(MsgPresets.Ping(cmd.getEvent().getJDA())).queue();
     }
 
     @Override

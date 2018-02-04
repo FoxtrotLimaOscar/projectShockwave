@@ -59,6 +59,7 @@ public class Main {
         CmdHandler.commands.put("skip", new CmdSkip());
         CmdHandler.commands.put("stop", new CmdStop());
         CmdHandler.commands.put("dev", new CmdDev());
+        CmdHandler.commands.put("search", new CmdSearch());
     }
 
 

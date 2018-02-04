@@ -20,16 +20,11 @@ public class CmdHelp implements CmdInterface {
     public void run(Command cmd) {
         if (cmd.getSlices().length  == 2) {
             String cmdName = cmd.getSlice(1);
-            cmd.getEvent().getTextChannel().sendMessage(CmdHandler.getHelp(cmdName, Database.getGuild(cmd.getEvent().getGuild()).getPrefix())).queue(message -> message.delete().queueAfter(1, TimeUnit.MINUTES));
+            cmd.getEvent().getChannel().sendMessage(CmdHandler.getHelp(cmdName, Database.getGuild(cmd.getEvent().getGuild()).getPrefix())).queue(message -> message.delete().queueAfter(1, TimeUnit.MINUTES));
         } else {
-            cmd.getEvent().getTextChannel().sendMessage(MsgPresets.sendHelp()).queue(message -> message.delete().queueAfter(1, TimeUnit.MINUTES));
+            cmd.getEvent().getChannel().sendMessage(MsgPresets.sendHelp()).queue(message -> message.delete().queueAfter(1, TimeUnit.MINUTES));
             cmd.getEvent().getAuthor().openPrivateChannel().complete().sendMessage(MsgPresets.helpAll()).queue();
         }
-    }
-
-    @Override
-    public void emoteUpdate(ReactEvent reactEvent) {
-
     }
 
     @Override

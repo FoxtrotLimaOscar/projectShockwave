@@ -3,6 +3,7 @@ package commands.management;
 import commands.CmdHandler;
 import commands.CmdInterface;
 import commands.Command;
+import commands.ReactHandler;
 import core.Permission;
 import entities.ReactEvent;
 import net.dv8tion.jda.core.entities.Member;
@@ -10,7 +11,7 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import tools.MsgPresets;
 
-public class CmdSettings implements CmdInterface {
+public class CmdSettings implements CmdInterface, ReactHandler {
 
     private int page = 0;
     private Member member;
@@ -29,7 +30,7 @@ public class CmdSettings implements CmdInterface {
                 page = 0;
             }
         }
-        Message msg = cmd.getEvent().getTextChannel().sendMessage(getPageContent()).complete();
+        Message msg = cmd.getEvent().getChannel().sendMessage(getPageContent()).complete();
         msg.addReaction("⬅").queue();
         msg.addReaction("➡").queue();
         msg.addReaction("❌").queue();

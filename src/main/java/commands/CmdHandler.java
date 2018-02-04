@@ -8,6 +8,7 @@ import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import core.BotConfig;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import tools.MsgPresets;
 import tools.ProjectTools;
 import tools.SubsToolkit;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 
 public class CmdHandler {
     public static HashMap<String, CmdInterface>  commands = new HashMap<>();
-    public static HashMap<String, CmdInterface> reactionTickets = new HashMap<>();
+    public static HashMap<String, ReactHandler> reactionTickets = new HashMap<>();
 
     public static void handleCommand(Command cmd) {
 
@@ -29,13 +30,13 @@ public class CmdHandler {
 
             CmdInterface cmdInterface = commands.get(cmd.getInvoke().toLowerCase());
             Permission permission = cmdInterface.permission();
-            MessageReceivedEvent event = cmd.getEvent();
+            GuildMessageReceivedEvent event = cmd.getEvent();
             boolean permissionGranted = Permission.hasPermission(event.getMember(), permission);
 
             if(permissionGranted) {
                 cmdInterface.run(cmd);
             } else {
-                event.getTextChannel().sendMessage(MsgPresets.noPermission(permission, event.getMember())).queue();
+                event.getChannel().sendMessage(MsgPresets.noPermission(permission, event.getMember())).queue();
             }
 
             logCmd(event, permissionGranted, permission);
@@ -57,7 +58,7 @@ public class CmdHandler {
         }
     }
 
-    private static void logCmd(MessageReceivedEvent event, boolean permissionGranted, Permission permission) {
+    private static void logCmd(GuildMessageReceivedEvent event, boolean permissionGranted, Permission permission) {
         String logChannelid = BotConfig.getLogchannelId();
         String permString;
         User user = event.getAuthor();

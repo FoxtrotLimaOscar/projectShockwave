@@ -21,11 +21,6 @@ public class CmdSkip implements CmdInterface {
     }
 
     @Override
-    public void emoteUpdate(ReactEvent reactEvent) {
-
-    }
-
-    @Override
     public String syntax(String prefix) {
         return prefix + "skip";
     }

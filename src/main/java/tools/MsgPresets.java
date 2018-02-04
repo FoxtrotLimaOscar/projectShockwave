@@ -1,5 +1,8 @@
 package tools;
 
+import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import commands.CmdHandler;
 import core.Permission;
 import core.Statics;
@@ -11,6 +14,7 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import core.database.Database;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 public class MsgPresets extends EmbedBuilder {
@@ -29,7 +33,7 @@ public class MsgPresets extends EmbedBuilder {
 
 
 
-    public static MessageEmbed logCmd(MessageReceivedEvent event, boolean allowed, Permission permission) {
+    public static MessageEmbed logCmd(GuildMessageReceivedEvent event, boolean allowed, Permission permission) {
         String allowedText;
         if (allowed) {
             allowedText = "permission granted";
@@ -231,5 +235,13 @@ public class MsgPresets extends EmbedBuilder {
                 .setDescription("Der Track \"" + tile + "\" wird nun abgespielt")
                 .setThumbnail(uri)
                 .build();
+    }
+    public static MessageEmbed musicSearchResults(AudioPlaylist playlist) {
+        EmbedBuilder builder = new EmbedBuilder().setColor(defaultColor).setTitle("\uD83C\uDFB5 - SUCHERGEBNISSE");
+        for (int loop = 1; loop <= 5; loop ++) {
+            AudioTrackInfo info = playlist.getTracks().get(loop-1).getInfo();
+            builder.addField("Suchergebnis " + loop, info.title, false);
+        }
+        return builder.build();
     }
 }

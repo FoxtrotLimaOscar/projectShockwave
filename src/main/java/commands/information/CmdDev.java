@@ -18,12 +18,7 @@ public class CmdDev implements CmdInterface {
 
     @Override
     public void run(Command cmd) {
-        cmd.getEvent().getTextChannel().sendMessage(getInfo(cmd.getSlice(1))).queue();
-    }
-
-    @Override
-    public void emoteUpdate(ReactEvent reactEvent) {
-
+        cmd.getEvent().getChannel().sendMessage(getInfo(cmd.getSlice(1))).queue();
     }
 
     @Override

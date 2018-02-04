@@ -2,18 +2,19 @@ package commands;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import core.database.Database;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Command {
 
-    private MessageReceivedEvent event;
+    private GuildMessageReceivedEvent event;
     private String raw;
     private String beheaded;
     private String[] sliced;
 
-    public Command(MessageReceivedEvent event) {
+    public Command(GuildMessageReceivedEvent event) {
         this.event = event;
         this.raw = this.event.getMessage().getContentRaw();
         this.beheaded = this.raw.replaceFirst(Database.getGuild(event.getGuild()).getPrefix() + "", "");
@@ -35,7 +36,7 @@ public class Command {
     public String[] getSlices() {
         return this.sliced;
     }
-    public MessageReceivedEvent getEvent() {
+    public GuildMessageReceivedEvent getEvent() {
         return this.event;
     }
     //Invoke == pos0 | arg1 == pos1
