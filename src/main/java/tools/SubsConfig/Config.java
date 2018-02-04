@@ -50,14 +50,14 @@ public class Config {
             e.printStackTrace();
         }
     }
-    public void load() {
+    private void load() {
         try {
             this.items.clear();
             Reader reader = new FileReader(this.file);
             Scanner scanner = new Scanner(reader);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                if (!line.startsWith("#")) {
+                if (!line.startsWith("#") && !line.equals("")) {
                     ConfigItem item = new ConfigItem(line);
                     this.items.put(item.getKey(), item);
                 }

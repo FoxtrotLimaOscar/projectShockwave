@@ -56,10 +56,10 @@ public class CmdShutdown implements CmdInterface {
         return "Fährt den Bot herunter";
     }
 
-    public static void shutdownWarn(Guild exception) {
+    private static void shutdownWarn(Guild exception) {
         for (Guild index : exception.getJDA().getGuilds()) {
             GSettings guildSettings = Database.getGuild(index);
-            if (guildSettings.getBootMessage()) guildSettings.getBotChannel().sendMessage(MsgPresets.Shutdown()).complete();
+            if (guildSettings.getBootMessage() && !index.getId().equals(exception.getId())) guildSettings.getBotChannel().sendMessage(MsgPresets.Shutdown()).complete();
         }
     }
 }

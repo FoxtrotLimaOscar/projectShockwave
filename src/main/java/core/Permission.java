@@ -2,10 +2,7 @@ package core;
 
 import entities.DJRole;
 import net.dv8tion.jda.core.entities.Member;
-import settings.BotConfig;
 import core.database.Database;
-
-import java.util.Arrays;
 
 public enum Permission {
     BOT,
@@ -16,7 +13,7 @@ public enum Permission {
     public static boolean hasPermission(Member member, Enum permission) {
         switch (permission.toString()) {
             case "BOT":
-                if (Arrays.asList(BotConfig.getBotownerIds()).contains(member.getUser().getId())){
+                if (BotConfig.getBotownerIds().contains(member.getUser().getId())) {
                     return true;
                 }
                 break;

@@ -44,6 +44,9 @@ public class Table {
 
         for(int row = 0; row < rowLength; row++) {
             int tableRow = getTableRow(row);
+            if (row != 0) {
+                main += "\n";
+            }
             for (int column = 0; column < columnLength; column++) {
                 String insert;
                 int tableColumn = getTableColumn(column);
@@ -64,7 +67,6 @@ public class Table {
                 }
                 main += insert;
             }
-            main += "\n";
         }
         return main;
     }

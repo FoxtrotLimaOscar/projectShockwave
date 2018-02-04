@@ -1,4 +1,4 @@
-package settings;
+package core;
 
 import tools.BooleanTools;
 import tools.StringTools;
@@ -13,33 +13,35 @@ import java.util.Scanner;
 
 public class BotConfig {
 
-    private static File file = new File("config.txt");
-    private static Config config = new Config(file, getDefaults());
 
-    public static boolean securityCheck(){
+    private static Config config;
+
+    public static void load() {
+        File file = new File("config.txt");
+        config = new Config(file, getDefaults());
+    }
+    public static void securityCheck(){
         String error = null;
-        if (config.checkSingle(STARTOPTIONS_AUTO)) {
-            error = STARTOPTIONS_NAMES + "must have a value";
+        if (!config.checkSingle(STARTOPTIONS_AUTO)) {
+            error = "\"" + STARTOPTIONS_NAMES + "\" must have a value";
         }
-        if (config.checkArray(STARTOPTIONS_NAMES)) {
-            error = STARTOPTIONS_NAMES + " must contain at least one value";
+        if (!config.checkArray(STARTOPTIONS_NAMES)) {
+            error = "\"" + STARTOPTIONS_NAMES + "\" must contain at least one value";
         }
-        if (config.checkArray(STARTOPTIONS_TOKENS)) {
-            error = STARTOPTIONS_TOKENS + " must contain at least one value";
+        if (!config.checkArray(STARTOPTIONS_TOKENS)) {
+            error = "\"" + STARTOPTIONS_TOKENS + "\" must contain at least one value";
         }
         if (config.item(STARTOPTIONS_TOKENS).getArray().size() != config.item(STARTOPTIONS_NAMES).getArray().size()) {
-            error = STARTOPTIONS_TOKENS + " and " + STARTOPTIONS_NAMES + "must have the same length";
+            error = "\"" + STARTOPTIONS_TOKENS + "\" and \"" + STARTOPTIONS_NAMES + "\" must have the amount of values";
         }
-        if (config.checkArray(BOTOWNERIDS)) {
-            error = BOTOWNERIDS + " must contain at least one value";
+        if (!config.checkArray(BOTOWNERIDS)) {
+            error = "\"" + BOTOWNERIDS + "\"" + " must contain at least one value";
         }
 
         if (error != null) {
-            System.out.println("Error with config.txt" + error);
+            System.out.println("Flaw inside of config.txt:\n" + error);
             System.exit(1);
-            return false;
         }
-        return true;
     }
 
     public static String getToken() {

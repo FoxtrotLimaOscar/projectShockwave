@@ -1,9 +1,8 @@
 package entities;
 
 
-import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.TextChannel;
-import settings.BotConfig;
+import core.BotConfig;
 
 public class MusicChannel {
     private TextChannel channel;

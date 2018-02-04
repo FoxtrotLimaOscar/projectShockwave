@@ -69,9 +69,10 @@ public class MsgPresets extends EmbedBuilder {
                 description += ", " + index.getAsMention();
             }
         }
-        description = description.substring(2);
         if (description.equals("")) {
             description = "Niemand auf dieser Guild";
+        } else {
+            description = description.substring(2);
         }
         return new EmbedBuilder()
                 .setColor(Color.orange)

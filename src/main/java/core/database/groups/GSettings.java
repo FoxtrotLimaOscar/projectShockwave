@@ -5,7 +5,7 @@ import entities.DJRole;
 import entities.MusicChannel;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
-import settings.BotConfig;
+import core.BotConfig;
 import core.database.Database;
 
 public class GSettings {

@@ -51,6 +51,8 @@ public class CmdSettings implements CmdInterface {
             reactEvent.getMessage().editMessage(getPageContent()).queue();
         } else if (sameUser && reactEvent.getEmote().equals("❌")) {
             reactEvent.getMessage().delete().queue();
+        } else {
+            CmdHandler.reactionTickets.put(reactEvent.getMessageID(), this);
         }
     }
 

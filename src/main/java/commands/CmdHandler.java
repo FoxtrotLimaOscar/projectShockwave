@@ -1,12 +1,20 @@
 package commands;
 
 import core.Permission;
+import core.Statics;
 import entities.ReactEvent;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import settings.BotConfig;
+import core.BotConfig;
 import tools.MsgPresets;
+import tools.ProjectTools;
+import tools.SubsToolkit;
 
+import java.io.*;
+import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.HashMap;
 
 public class CmdHandler {
@@ -19,7 +27,7 @@ public class CmdHandler {
 
             cmd.getEvent().getMessage().delete().queue();
 
-            CmdInterface cmdInterface = commands.get(cmd.getInvoke());
+            CmdInterface cmdInterface = commands.get(cmd.getInvoke().toLowerCase());
             Permission permission = cmdInterface.permission();
             MessageReceivedEvent event = cmd.getEvent();
             boolean permissionGranted = Permission.hasPermission(event.getMember(), permission);
@@ -30,12 +38,7 @@ public class CmdHandler {
                 event.getTextChannel().sendMessage(MsgPresets.noPermission(permission, event.getMember())).queue();
             }
 
-            try {
-                event.getJDA().getTextChannelById(BotConfig.getLogchannelId()).sendMessage(MsgPresets.logCmd(event, permissionGranted, permission)).queue();
-            } catch (IllegalArgumentException e) {
-                //DO NOTHING
-            }
-
+            logCmd(event, permissionGranted, permission);
         }
     }
 
@@ -52,5 +55,35 @@ public class CmdHandler {
         if (reactionTickets.containsKey(ID) && !reactEvent.getUser().isBot()) {
             reactionTickets.remove(ID).emoteUpdate(reactEvent);
         }
+    }
+
+    private static void logCmd(MessageReceivedEvent event, boolean permissionGranted, Permission permission) {
+        String logChannelid = BotConfig.getLogchannelId();
+        String permString;
+        User user = event.getAuthor();
+        Guild guild = event.getGuild();
+        String userString = user.getName() + user.getDiscriminator() + "/" + user.getId();
+        String guildString = guild.getName() + "/" + guild.getId();
+        String timeString = SubsToolkit.humanizeTimeLog(event.getMessage().getCreationTime());
+        if (permissionGranted) {
+            permString = "GRNTD";
+        } else {
+            permString = "RJCTD";
+        }
+        if (ProjectTools.isChannelID(logChannelid)) {
+            try {
+                event.getJDA().getTextChannelById(BotConfig.getLogchannelId()).sendMessage(MsgPresets.logCmd(event, permissionGranted, permission)).queue();
+                BufferedWriter writer = new BufferedWriter(new FileWriter(new File("cmdlog.txt"), true));
+                writer.write(event.getMessage().getContentDisplay() + " - [ " + permString + " | " + timeString + " | " + userString + " | " + guildString + " ]");
+                writer.newLine();
+                writer.close();
+            } catch (IllegalArgumentException e) {
+                System.out.println("Please enter a valid Log-Channel-Id or leave the field empty");
+                System.exit(1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

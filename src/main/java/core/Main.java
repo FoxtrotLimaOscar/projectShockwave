@@ -11,16 +11,10 @@ import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
-import settings.BotConfig;
 import core.database.Database;
-import tools.SubsConfig.Config;
-import tools.SubsConfig.ConfigItem;
-import tools.SubsConfig.Defaults;
 
 import javax.security.auth.login.LoginException;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 public class Main {
 
@@ -29,6 +23,8 @@ public class Main {
     public static void main(String[] arguments) throws InterruptedException, FileNotFoundException {
 
 
+        BotConfig.load();
+        BotConfig.securityCheck();
         Database.load();
 
 

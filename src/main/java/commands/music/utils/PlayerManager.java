@@ -11,6 +11,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import commands.CmdHandler;
 import commands.CmdInterface;
+import commands.music.SearchResultHandler;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
@@ -113,6 +114,23 @@ public class PlayerManager {
             public void loadFailed(FriendlyException exception) {
                 exception.printStackTrace();
             }
+        });
+    }
+
+    public void searchTrack(Guild guild, String identifier, SearchResultHandler handler) {
+        MANAGER.loadItemOrdered(guild, identifier, new AudioLoadResultHandler() {
+            @Override
+            public void trackLoaded(AudioTrack track) {}
+            @Override
+            public void playlistLoaded(AudioPlaylist playlist) {
+                handler.searchResults(playlist);
+            }
+            @Override
+            public void noMatches() {
+                handler.searchResults(null);
+            }
+            @Override
+            public void loadFailed(FriendlyException exception) {}
         });
     }
 
