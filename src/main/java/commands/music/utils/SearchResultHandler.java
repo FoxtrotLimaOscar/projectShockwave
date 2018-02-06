@@ -1,4 +1,4 @@
-package commands.music;
+package commands.music.utils;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 

@@ -63,7 +63,7 @@ public class CmdHandler {
         String permString;
         User user = event.getAuthor();
         Guild guild = event.getGuild();
-        String userString = user.getName() + user.getDiscriminator() + "/" + user.getId();
+        String userString = user.getName() + "(#" + user.getDiscriminator() + ")/" + user.getId();
         String guildString = guild.getName() + "/" + guild.getId();
         String timeString = SubsToolkit.humanizeTimeLog(event.getMessage().getCreationTime());
         if (permissionGranted) {
