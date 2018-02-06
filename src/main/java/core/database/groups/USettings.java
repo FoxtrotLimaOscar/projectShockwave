@@ -4,7 +4,8 @@ import com.toddway.shelf.ShelfItem;
 import net.dv8tion.jda.core.entities.User;
 import core.database.Database;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class USettings {
     private User user;
@@ -19,13 +20,13 @@ public class USettings {
     }
 
 
-    private void setFavsongs(ArrayList<String> favsongs) {
-        item("favsongs").put(favsongs);
+    public void setMap(Map<String, String> map) {
+        item("MAP").put(map);
     }
-    private ArrayList<String> getFavsongs() {
-        if (item("FAVSONGS").exists()) {
-            return (ArrayList<String>) item("FAVSONGS").get(ArrayList.class);
+    public Map<String, String> getMap() {
+        if (item("MAP").exists()) {
+            return (Map<String, String>) item("MAP").get(Map.class);
         }
-        return new ArrayList<String>();
+        return new HashMap<>();
     }
 }

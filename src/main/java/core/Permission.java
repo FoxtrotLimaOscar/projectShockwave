@@ -1,6 +1,6 @@
 package core;
 
-import entities.DJRole;
+import core.database.structures.DJRole;
 import net.dv8tion.jda.core.entities.Member;
 import core.database.Database;
 

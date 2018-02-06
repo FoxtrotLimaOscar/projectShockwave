@@ -3,9 +3,6 @@ package commands.information;
 import commands.CmdInterface;
 import commands.Command;
 import core.Permission;
-import entities.ReactEvent;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
 import tools.MsgPresets;
 
 public class CmdPing implements CmdInterface {

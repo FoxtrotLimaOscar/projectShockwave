@@ -20,16 +20,24 @@ public class Database {
 
     public static GSettings getGuild(Guild guild) {
         Statics.databaseAccesses++;
-        return new GSettings(guild, "GUILD-" + guild.getId() + "/");
+        return new GSettings(guild, "GUILDS-" + guild.getId() + "-");
     }
 
     public static USettings getUser(User user) {
         Statics.databaseAccesses++;
-        return new USettings(user, "USER-" + user.getId() + "/");
+        return new USettings(user, "USERS-" + user.getId() + "-");
     }
 
     public static BSettings getBot() {
         Statics.databaseAccesses++;
         return new BSettings();
+    }
+
+    public static boolean check() {
+        String key = "putput";
+        String item = "DIKKA";
+        shelf.item(key).put(item);
+        String rec = shelf.item(key).get(String.class);
+        return item.equals(rec);
     }
 }

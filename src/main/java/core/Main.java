@@ -1,5 +1,6 @@
 package core;
 
+import com.sun.deploy.util.StringUtils;
 import commands.CmdHandler;
 import commands.information.*;
 import commands.music.*;
@@ -12,6 +13,7 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import core.database.Database;
+import tools.SubsToolkit;
 
 import javax.security.auth.login.LoginException;
 import java.io.FileNotFoundException;
@@ -26,6 +28,7 @@ public class Main {
         BotConfig.load();
         BotConfig.securityCheck();
         Database.load();
+        //System.out.println(SubsToolkit.boolString(Database.check()));
 
 
         //Builder setup
@@ -60,6 +63,7 @@ public class Main {
         CmdHandler.commands.put("stop", new CmdStop());
         CmdHandler.commands.put("dev", new CmdDev());
         CmdHandler.commands.put("search", new CmdSearch());
+        CmdHandler.commands.put("map", new CmdMap());
     }
 
 

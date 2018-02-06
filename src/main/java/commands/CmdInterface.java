@@ -1,7 +1,6 @@
 package commands;
 
 import core.Permission;
-import entities.ReactEvent;
 
 public interface CmdInterface {
     Permission permission();

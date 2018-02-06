@@ -17,6 +17,8 @@ import core.database.Database;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
+import java.util.Map;
+
 public class MsgPresets extends EmbedBuilder {
 
     private static Color warnColor = Color.orange;
@@ -243,5 +245,45 @@ public class MsgPresets extends EmbedBuilder {
             builder.addField("Suchergebnis " + loop, info.title, false);
         }
         return builder.build();
+    }
+    public static MessageEmbed musicNotConnected() {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚠ - MUSIC")
+                .setDescription("Du musst in einem VoiceChannel sein um Musik abzuspielen")
+                .build();
+    }
+
+
+
+    public static MessageEmbed mapSaves(Map<String, String> map) {
+        EmbedBuilder builder = new EmbedBuilder().setColor(defaultColor).setTitle("\uD83D\uDD17 - MAP");
+        if (map.isEmpty()) {
+            builder.setDescription("Dein Map ist leer");
+        } else {
+            map.forEach((key, value) -> builder.addField(key, value, false));
+        }
+        return builder.build();
+    }
+    public static MessageEmbed mapNoSuchKey(String key) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("\uD83D\uDD17 - MAP")
+                .setDescription("Ein Schlüssel mit dem Namen \"" + key + "\" existiert nicht")
+                .build();
+    }
+    public static MessageEmbed mapDeleted(String key) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("\uD83D\uDD17 - MAP")
+                .setDescription("Der Schlüssel \"" + key + "\" wurde erfolgreich entfernt")
+                .build();
+    }
+    public static MessageEmbed mapSaved(String key, String value) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("\uD83D\uDD17 - MAP")
+                .setDescription("\"" + value + "\" wurde erfolgreich an den Schlüssel \"" + key + "\" gebunden")
+                .build();
     }
 }

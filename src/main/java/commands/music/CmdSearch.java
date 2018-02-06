@@ -12,7 +12,7 @@ import commands.music.utils.SearchResultHandler;
 import commands.music.utils.TrackManager;
 import core.Permission;
 import core.database.Database;
-import entities.ReactEvent;
+import commands.ReactEvent;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import tools.MsgPresets;

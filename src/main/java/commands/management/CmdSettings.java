@@ -5,7 +5,7 @@ import commands.CmdInterface;
 import commands.Command;
 import commands.ReactHandler;
 import core.Permission;
-import entities.ReactEvent;
+import commands.ReactEvent;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;

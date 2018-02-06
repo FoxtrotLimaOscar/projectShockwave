@@ -4,7 +4,6 @@ import commands.CmdInterface;
 import commands.Command;
 import commands.music.utils.PlayerManager;
 import core.Permission;
-import entities.ReactEvent;
 import net.dv8tion.jda.core.entities.Guild;
 
 public class CmdStop implements CmdInterface {

@@ -1,4 +1,4 @@
-package entities;
+package core.database.structures;
 
 import net.dv8tion.jda.core.entities.Role;
 

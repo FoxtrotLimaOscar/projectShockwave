@@ -6,7 +6,7 @@ import commands.Command;
 import commands.ReactHandler;
 import core.Permission;
 import core.database.groups.GSettings;
-import entities.ReactEvent;
+import commands.ReactEvent;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;

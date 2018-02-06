@@ -4,7 +4,6 @@ import commands.CmdHandler;
 import commands.CmdInterface;
 import commands.Command;
 import core.Permission;
-import entities.ReactEvent;
 import core.database.Database;
 import tools.MsgPresets;
 

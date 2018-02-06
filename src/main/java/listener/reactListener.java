@@ -1,7 +1,7 @@
 package listener;
 
 import commands.CmdHandler;
-import entities.ReactEvent;
+import commands.ReactEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;

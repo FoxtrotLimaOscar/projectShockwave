@@ -50,6 +50,7 @@ public class TrackManager extends AudioEventAdapter {
         AudioInfo current = cQueue.get(0);
         cQueue.remove(0);
         Collections.shuffle(cQueue);
+        cQueue.add(0, current);
         purgeQueue();
         queue.addAll(cQueue);
     }

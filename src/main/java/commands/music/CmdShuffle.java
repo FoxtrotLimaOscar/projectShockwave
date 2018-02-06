@@ -1,11 +1,9 @@
 package commands.music;
 
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import commands.CmdInterface;
 import commands.Command;
 import commands.music.utils.PlayerManager;
 import core.Permission;
-import entities.ReactEvent;
 import net.dv8tion.jda.core.entities.Guild;
 
 public class CmdShuffle implements CmdInterface {

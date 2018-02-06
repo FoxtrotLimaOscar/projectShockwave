@@ -1,8 +1,8 @@
 package core.database.groups;
 
 import com.toddway.shelf.ShelfItem;
-import entities.DJRole;
-import entities.MusicChannel;
+import core.database.structures.DJRole;
+import core.database.structures.MusicChannel;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 import core.BotConfig;

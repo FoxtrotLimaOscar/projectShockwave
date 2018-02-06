@@ -10,13 +10,9 @@ import commands.music.utils.PlayerManager;
 import commands.music.utils.SearchResultHandler;
 import commands.music.utils.TrackManager;
 import core.Permission;
-import core.database.groups.GSettings;
-import entities.ReactEvent;
-import net.dv8tion.jda.core.entities.Guild;
+import commands.ReactEvent;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import core.database.Database;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import tools.MsgPresets;
@@ -40,9 +36,7 @@ public class CmdPlay implements CmdInterface, SearchResultHandler, ReactHandler 
         this.channel = event.getChannel();
         if (cmd.hasParam(1)) {
             String identifier = cmd.getRaw(1);
-            if (!(identifier.startsWith("http://") || identifier.startsWith("https://"))) {
-                identifier = "ytsearch:" + identifier;
-            }
+            identifier = makeSearchReady(identifier);
             PlayerManager.searchTrack(this.member.getGuild(), identifier, this);
         } else {
             this.channel.sendMessage(MsgPresets.musicNoSearchfactor(Database.getGuild(this.member.getGuild()).getPrefix())).queue();
@@ -69,22 +63,37 @@ public class CmdPlay implements CmdInterface, SearchResultHandler, ReactHandler 
 
     @Override
     public void searchResults(AudioPlaylist playlist) {
-        TrackManager manager = PlayerManager.getTrackManager(this.member.getGuild());
+        handleSearchResults(playlist, this.channel, this.member);
+    }
+
+    static void handleSearchResults(AudioPlaylist playlist, TextChannel channel, Member member) {
+        TrackManager manager = PlayerManager.getTrackManager(member.getGuild());
         List<AudioTrack> tracks = playlist.getTracks();
-        if (playlist.getTracks().size() == 1) {
+        if (!member.getVoiceState().inVoiceChannel()) {
+            channel.sendMessage(MsgPresets.musicNotConnected()).queue();
+            return;
+        }
+        if (playlist.isSearchResult()) {
             AudioTrack track = tracks.get(0);
             AudioTrackInfo info = track.getInfo();
-            if (manager.getQueue().isEmpty()) {
-                this.channel.sendMessage(MsgPresets.musicQueuedInfo(false, info.title, info.uri)).queue();
+            if (!manager.getQueue().isEmpty()) {
+                channel.sendMessage(MsgPresets.musicQueuedInfo(false, info.title, info.uri)).queue();
             }
-            manager.queue(track, this.member);
+            manager.queue(track, member);
         } else {
             if (!manager.getQueue().isEmpty()) {
-                this.channel.sendMessage(MsgPresets.musicQueuedInfo(true, playlist.getName(), tracks.get(0).getInfo().uri)).queue();
+                channel.sendMessage(MsgPresets.musicQueuedInfo(true, playlist.getName(), tracks.get(0).getInfo().uri)).queue();
             }
             for (AudioTrack track : tracks) {
-                manager.queue(track, this.member);
+                manager.queue(track, member);
             }
         }
+    }
+
+    static String makeSearchReady(String identifier) {
+        if (!(identifier.startsWith("http://") || identifier.startsWith("https://"))) {
+            identifier = "ytsearch:" + identifier;
+        }
+        return identifier;
     }
 }
