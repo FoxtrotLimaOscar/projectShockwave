@@ -12,11 +12,14 @@ import commands.music.utils.TrackManager;
 import core.Permission;
 import commands.ReactEvent;
 import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import core.database.Database;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import tools.MsgPresets;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CmdPlay implements CmdInterface, SearchResultHandler, ReactHandler {
@@ -73,25 +76,30 @@ public class CmdPlay implements CmdInterface, SearchResultHandler, ReactHandler 
 
     static void handleSearchResults(AudioPlaylist playlist, TextChannel channel, Member member) {
         TrackManager manager = PlayerManager.getTrackManager(member.getGuild());
-        List<AudioTrack> tracks = playlist.getTracks();
+        List<AudioTrack> foundTracks = playlist.getTracks();
+        LinkedList<AudioTrack> futureTracks = new LinkedList<>();
+        Message queuedMsg = null;
         if (!member.getVoiceState().inVoiceChannel()) {
             channel.sendMessage(MsgPresets.musicNotConnected()).queue();
             return;
         }
-        if (playlist.isSearchResult()) {
-            AudioTrack track = tracks.get(0);
-            AudioTrackInfo info = track.getInfo();
-            if (!manager.getQueue().isEmpty()) {
-                channel.sendMessage(MsgPresets.musicQueuedInfo(false, info.title, info.uri)).queue();
-            }
-            manager.queue(track, member);
+        if(playlist.isSearchResult()) {
+            futureTracks.add(foundTracks.get(0));
         } else {
-            if (!manager.getQueue().isEmpty()) {
-                channel.sendMessage(MsgPresets.musicQueuedInfo(true, playlist.getName(), tracks.get(0).getInfo().uri)).queue();
-            }
-            for (AudioTrack track : tracks) {
-                manager.queue(track, member);
-            }
+            futureTracks.addAll(foundTracks);
+        }
+        if (futureTracks.size() == 1 && !manager.getQueue().isEmpty()) {
+            AudioTrackInfo firstTrackInfo = futureTracks.get(0).getInfo();
+            queuedMsg = channel.sendMessage(MsgPresets.musicQueuedInfo(false, firstTrackInfo.title, firstTrackInfo.uri)).complete();
+        } else if (futureTracks.size() > 1) {
+            Collections.shuffle(futureTracks);
+            queuedMsg = channel.sendMessage(MsgPresets.musicQueuedInfo(true, playlist.getName(), futureTracks.get(0).getInfo().uri)).complete();
+        }
+        for (AudioTrack track : futureTracks) {
+            manager.queue(track, member);
+        }
+        if (queuedMsg != null) {
+            queuedMsg.addReaction("❌").queue();
         }
     }
 
