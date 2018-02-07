@@ -238,6 +238,14 @@ public class MsgPresets extends EmbedBuilder {
                 .setThumbnail(uri)
                 .build();
     }
+    public static MessageEmbed musicDequeuedInfo(String title ,String uri) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("\uD83C\uDFB5 - QUEUE")
+                .setDescription("Der Track \"" + title + "\" wurde von der Queue entfernt")
+                .setThumbnail(ProjectTools.getThumbnail(uri))
+                .build();
+    }
     public static MessageEmbed musicPlayingInfo(String tile, String uri) {
         uri = ProjectTools.getThumbnail(uri);
         return new EmbedBuilder()

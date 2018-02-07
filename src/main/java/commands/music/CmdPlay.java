@@ -3,14 +3,9 @@ package commands.music;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import commands.CmdInterface;
-import commands.Command;
-import commands.ReactHandler;
-import commands.music.utils.PlayerManager;
-import commands.music.utils.SearchResultHandler;
-import commands.music.utils.TrackManager;
+import commands.*;
+import commands.music.utils.*;
 import core.Permission;
-import commands.ReactEvent;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -75,31 +70,33 @@ public class CmdPlay implements CmdInterface, SearchResultHandler, ReactHandler 
     }
 
     static void handleSearchResults(AudioPlaylist playlist, TextChannel channel, Member member) {
-        TrackManager manager = PlayerManager.getTrackManager(member.getGuild());
-        List<AudioTrack> foundTracks = playlist.getTracks();
-        LinkedList<AudioTrack> futureTracks = new LinkedList<>();
-        Message queuedMsg = null;
         if (!member.getVoiceState().inVoiceChannel()) {
             channel.sendMessage(MsgPresets.musicNotConnected()).queue();
             return;
         }
+        TrackManager manager = PlayerManager.getTrackManager(member.getGuild());
+        List<AudioTrack> foundTracks = playlist.getTracks();
+        LinkedList<AudioTrack> futureTracks = new LinkedList<>();
         if(playlist.isSearchResult()) {
             futureTracks.add(foundTracks.get(0));
         } else {
             futureTracks.addAll(foundTracks);
         }
         if (futureTracks.size() == 1 && !manager.getQueue().isEmpty()) {
-            AudioTrackInfo firstTrackInfo = futureTracks.get(0).getInfo();
+            Message queuedMsg ;
+            AudioTrack firstTrack = futureTracks.get(0);
+            AudioTrackInfo firstTrackInfo = firstTrack.getInfo();
+            AudioInfo audioInfo = new AudioInfo(firstTrack, member);
             queuedMsg = channel.sendMessage(MsgPresets.musicQueuedInfo(false, firstTrackInfo.title, firstTrackInfo.uri)).complete();
+            new QueuedMessage(queuedMsg, audioInfo);
+            manager.queue(audioInfo);
+            return;
         } else if (futureTracks.size() > 1) {
             Collections.shuffle(futureTracks);
-            queuedMsg = channel.sendMessage(MsgPresets.musicQueuedInfo(true, playlist.getName(), futureTracks.get(0).getInfo().uri)).complete();
+            channel.sendMessage(MsgPresets.musicQueuedInfo(true, playlist.getName(), futureTracks.get(0).getInfo().uri)).queue();
         }
         for (AudioTrack track : futureTracks) {
             manager.queue(track, member);
-        }
-        if (queuedMsg != null) {
-            queuedMsg.addReaction("❌").queue();
         }
     }
 

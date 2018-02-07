@@ -25,11 +25,24 @@ public class TrackManager extends AudioEventAdapter {
         this.queue = new LinkedList<>();
     }
 
-    public void queue(AudioTrack track, Member author) {
-        AudioInfo info = new AudioInfo(track, author);
-        queue.add(info);
+    public AudioInfo queue(AudioTrack track, Member author) {
+        return this.queue(new AudioInfo(track, author));
+    }
+
+    public AudioInfo queue(AudioInfo audioInfo) {
+        queue.add(audioInfo);
         if (PLAYER.getPlayingTrack() == null) {
-            PLAYER.playTrack(track);
+            PLAYER.playTrack(audioInfo.getTrack());
+        }
+        return audioInfo;
+    }
+
+    public boolean dequeue(AudioInfo audioInfo) {
+        if (audioInfo.equals(queue.element())) {
+            return false;
+        } else {
+            queue.removeLastOccurrence(audioInfo);
+            return true;
         }
     }
 
