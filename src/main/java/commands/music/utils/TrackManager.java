@@ -73,6 +73,7 @@ public class TrackManager extends AudioEventAdapter {
     }
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
+        queue.poll();
         if (queue.isEmpty()) {
             new Timer().schedule(new TimerTask() {
                 @Override
@@ -81,7 +82,6 @@ public class TrackManager extends AudioEventAdapter {
                 }
             }, 0);
         } else {
-            queue.poll();
             player.playTrack(queue.element().getTrack());
         }
     }

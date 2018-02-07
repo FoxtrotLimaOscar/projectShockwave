@@ -15,6 +15,7 @@ import tools.MsgPresets;
 
 public class CmdShutdown implements CmdInterface, ReactHandler {
     private User user;
+    private String reason = null;
 
     @Override
     public Permission permission() {
@@ -28,6 +29,9 @@ public class CmdShutdown implements CmdInterface, ReactHandler {
         msg.addReaction("❌").queue();
         CmdHandler.reactionTickets.put(msg.getId(), this);
         user = cmd.getEvent().getAuthor();
+        if (cmd.hasParam(1)) {
+            this.reason = cmd.getRaw(1);
+        }
     }
 
     @Override
@@ -35,9 +39,9 @@ public class CmdShutdown implements CmdInterface, ReactHandler {
         boolean sameUser = this.user.equals(reactEvent.getUser());
         if (reactEvent.getEmote().equals("✅") && sameUser) {
             Message msg = reactEvent.getMessage();
-            msg.editMessage(MsgPresets.Shutdown()).complete();
+            msg.editMessage(MsgPresets.shutdownFinal(this.reason)).complete();
             msg.clearReactions().complete();
-            shutdownWarn(reactEvent.getMessage().getGuild());
+            shutdownWarn(reactEvent.getMessage().getGuild(), this.reason);
             System.exit(1);
         } else if (reactEvent.getEmote().equals("❌") && sameUser) {
             Message msg = reactEvent.getMessage();
@@ -49,7 +53,7 @@ public class CmdShutdown implements CmdInterface, ReactHandler {
 
     @Override
     public String syntax(String prefix) {
-        return prefix + "shutdown";
+        return prefix + "shutdownFinal";
     }
 
     @Override
@@ -62,10 +66,10 @@ public class CmdShutdown implements CmdInterface, ReactHandler {
         return description();
     }
 
-    private static void shutdownWarn(Guild exception) {
+    private static void shutdownWarn(Guild exception, String reason) {
         for (Guild index : exception.getJDA().getGuilds()) {
             GSettings guildSettings = Database.getGuild(index);
-            if (guildSettings.getBootMessage() && !index.getId().equals(exception.getId())) guildSettings.getBotChannel().sendMessage(MsgPresets.Shutdown()).complete();
+            if (guildSettings.getBootMessage() && !index.getId().equals(exception.getId())) guildSettings.getBotChannel().sendMessage(MsgPresets.shutdownFinal(reason)).complete();
         }
     }
 }

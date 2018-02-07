@@ -106,12 +106,21 @@ public class MsgPresets extends EmbedBuilder {
     }
 
 
-    public static MessageEmbed Shutdown() {
-        return new EmbedBuilder()
-                .setColor(warnColor)
-                .setTitle("\uD83D\uDD3B - SHUTTING DOWN")
-                .setDescription("ProjectShockwave wird umgehend heruntergefahren")
-                .build();
+    public static MessageEmbed shutdownFinal(String reason) {
+        if (reason == null) {
+            return new EmbedBuilder()
+                    .setColor(warnColor)
+                    .setTitle("\uD83D\uDD3B - SHUTTING DOWN")
+                    .setDescription("ProjectShockwave wird umgehend heruntergefahren")
+                    .build();
+        } else {
+            return new EmbedBuilder()
+                    .setColor(warnColor)
+                    .setTitle("\uD83D\uDD3B - SHUTTING DOWN")
+                    .setDescription("ProjectShockwave wird umgehend heruntergefahren")
+                    .addField("Grund", reason, false)
+                    .build();
+        }
     }
 
 
