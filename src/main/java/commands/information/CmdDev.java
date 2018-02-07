@@ -34,6 +34,11 @@ public class CmdDev implements CmdInterface {
         return "Nerdy stuff";
     }
 
+    @Override
+    public String details() {
+        return description();
+    }
+
 
     private static MessageEmbed getInfo(String name, Member member) {
         EmbedBuilder msg = new EmbedBuilder().setColor(Color.GREEN).setTitle("\uD83D\uDCCA - " + name.toUpperCase());

@@ -57,6 +57,11 @@ public class CmdShutdown implements CmdInterface, ReactHandler {
         return "Fährt den Bot herunter";
     }
 
+    @Override
+    public String details() {
+        return description();
+    }
+
     private static void shutdownWarn(Guild exception) {
         for (Guild index : exception.getJDA().getGuilds()) {
             GSettings guildSettings = Database.getGuild(index);

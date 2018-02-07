@@ -24,4 +24,9 @@ public class CmdSet implements CmdInterface {
     public String description() {
         return "Lässt ";
     }
+
+    @Override
+    public String details() {
+        return description();
+    }
 }

@@ -15,12 +15,14 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrackManager extends AudioEventAdapter {
+    private final Guild GUILD;
     private final AudioPlayer PLAYER;
-    private final Queue<AudioInfo> queue;
+    private final LinkedList<AudioInfo> queue;
 
-    public TrackManager(AudioPlayer player) {
+    public TrackManager(AudioPlayer player, Guild guild) {
+        this.GUILD = guild;
         this.PLAYER = player;
-        this.queue = new LinkedBlockingQueue<>();
+        this.queue = new LinkedList<>();
     }
 
     public void queue(AudioTrack track, Member author) {
@@ -71,15 +73,15 @@ public class TrackManager extends AudioEventAdapter {
     }
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-        Guild guild = queue.poll().getAuthor().getGuild();
         if (queue.isEmpty()) {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    guild.getAudioManager().closeAudioConnection();
+                    TrackManager.this.GUILD.getAudioManager().closeAudioConnection();
                 }
             }, 0);
         } else {
+            queue.poll();
             player.playTrack(queue.element().getTrack());
         }
     }

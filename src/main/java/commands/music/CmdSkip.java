@@ -28,4 +28,9 @@ public class CmdSkip implements CmdInterface {
     public String description() {
         return "Überspringt den aktuell gespielten Track";
     }
+
+    @Override
+    public String details() {
+        return description();
+    }
 }

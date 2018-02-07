@@ -28,4 +28,9 @@ public class CmdShuffle implements CmdInterface {
     public String description() {
         return "Mischt die Queue";
     }
+
+    @Override
+    public String details() {
+        return description();
+    }
 }

@@ -29,9 +29,10 @@ public class CmdMap implements CmdInterface, SearchResultHandler {
         GuildMessageReceivedEvent event = cmd.getEvent();
         this.channel = event.getChannel();
         this.member = event.getMember();
-        if (!cmd.hasParam( 1)) {
+        USettings uSettings = Database.getUser(event.getAuthor());
+        if (!cmd.hasParam(1)) { //Wenn Eingabe nur den invoke (param0) enthält -> Die Map anzeigen
             this.channel.sendMessage(MsgPresets.mapSaves(Database.getUser(event.getAuthor()).getMap())).queue();
-        } else if (!cmd.hasParam(2)) {
+        } else if (!cmd.hasParam(2)) { //Wenn kein Wert (param2) zum Schlüssel (param1) eingegeben wurde -> Den Wert des Schlüssels bekommen und wiedergeben
             Map<String, String> map = Database.getUser(event.getAuthor()).getMap();
             String key = cmd.getSlice(1);
             if (map.containsKey(key)) {
@@ -41,9 +42,8 @@ public class CmdMap implements CmdInterface, SearchResultHandler {
             } else {
                 this.channel.sendMessage(MsgPresets.mapNoSuchKey(key)).queue();
             }
-        } else if (cmd.getSlice(2).equals("delete")) {
-            USettings uSettings = Database.getUser(event.getAuthor());
-            Map<String, String> map = uSettings.getMap();
+        } else if (cmd.getSlice(2).equals("delete")) { //Wenn der Wert (param2) "delete" ist -> Den Schlüssel mit Wert löschen
+            Map<String, String> map = Database.getUser(event.getAuthor()).getMap();
             String key = cmd.getSlice(1);
             if (map.containsKey(key)) {
                 map.remove(key);
@@ -52,9 +52,8 @@ public class CmdMap implements CmdInterface, SearchResultHandler {
             } else {
                 this.channel.sendMessage(MsgPresets.mapNoSuchKey(key)).queue();
             }
-        } else {
-            USettings uSettings = Database.getUser(event.getAuthor());
-            Map<String, String> map = uSettings.getMap();
+        } else { //Wenn der Schlüssel (param1) und der Wert (param2) vorhanden sind -> Einen Schlüssel mit dem angegebenen Wert speichern
+            Map<String, String> map = Database.getUser(event.getAuthor()).getMap();
             String key = cmd.getSlice(1);
             String value = cmd.getRaw(2);
             map.put(key, value);
@@ -65,12 +64,17 @@ public class CmdMap implements CmdInterface, SearchResultHandler {
 
     @Override
     public String syntax(String prefix) {
-        return prefix + "map < name > < delete | Name oder Link >";
+        return prefix + "map < Name > < delete | Name oder Link >";
     }
 
     @Override
     public String description() {
         return "Lässt dich Songtitel und Links zu einem eigenen Namen abkürzen";
+    }
+
+    @Override
+    public String details() {
+        return description();
     }
 
     @Override

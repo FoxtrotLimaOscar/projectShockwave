@@ -62,6 +62,11 @@ public class CmdPlay implements CmdInterface, SearchResultHandler, ReactHandler 
     }
 
     @Override
+    public String details() {
+        return description();
+    }
+
+    @Override
     public void searchResults(AudioPlaylist playlist) {
         handleSearchResults(playlist, this.channel, this.member);
     }

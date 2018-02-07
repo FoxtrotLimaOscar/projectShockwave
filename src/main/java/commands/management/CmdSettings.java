@@ -67,6 +67,11 @@ public class CmdSettings implements CmdInterface, ReactHandler {
         return "Übersicht aller Einstellungen";
     }
 
+    @Override
+    public String details() {
+        return description();
+    }
+
     private MessageEmbed getPageContent() {
         switch (page) {
             case 1:

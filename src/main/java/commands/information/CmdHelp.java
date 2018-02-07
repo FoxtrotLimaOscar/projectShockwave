@@ -35,4 +35,9 @@ public class CmdHelp implements CmdInterface {
     public String description() {
         return "Gibt dir Infos über einen oder alle Befehle";
     }
+
+    @Override
+    public String details() {
+        return description();
+    }
 }

@@ -28,7 +28,7 @@ public class PlayerManager {
     private static AudioPlayer createPlayer(Guild guild) {
         AudioSourceManagers.registerRemoteSources(MANAGER);
         AudioPlayer player = MANAGER.createPlayer();
-        TrackManager manager = new TrackManager(player);
+        TrackManager manager = new TrackManager(player, guild);
         player.addListener(manager);
         guild.getAudioManager().setSendingHandler(new PlayerSendHandler(player));
         PLAYERS.put(guild, new AbstractMap.SimpleEntry<>(player, manager));

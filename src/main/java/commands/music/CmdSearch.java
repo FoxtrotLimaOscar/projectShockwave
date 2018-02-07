@@ -50,6 +50,11 @@ public class CmdSearch implements CmdInterface, SearchResultHandler, ReactHandle
     }
 
     @Override
+    public String details() {
+        return description();
+    }
+
+    @Override
     public void emoteUpdate(ReactEvent reactEvent) {
         User user = reactEvent.getUser();
         Message msg = reactEvent.getMessage();

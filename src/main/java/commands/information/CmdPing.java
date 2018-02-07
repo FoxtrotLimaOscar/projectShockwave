@@ -26,4 +26,9 @@ public class CmdPing implements CmdInterface {
     public String description() {
         return "Gibt die aktuelle Latenzzeit an";
     }
+
+    @Override
+    public String details() {
+        return description();
+    }
 }

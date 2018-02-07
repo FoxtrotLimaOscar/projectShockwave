@@ -30,4 +30,9 @@ public class CmdStop implements CmdInterface {
     public String description() {
         return "Stoppt die Wiedergabe";
     }
+
+    @Override
+    public String details() {
+        return description();
+    }
 }

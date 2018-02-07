@@ -7,4 +7,5 @@ public interface CmdInterface {
     void run(Command cmd);
     String syntax(String prefix);
     String description();
+    String details();
 }

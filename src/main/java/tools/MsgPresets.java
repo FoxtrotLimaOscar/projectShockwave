@@ -249,6 +249,13 @@ public class MsgPresets extends EmbedBuilder {
     public static MessageEmbed musicNotConnected() {
         return new EmbedBuilder()
                 .setColor(defaultColor)
+                .setTitle("\uD83C\uDFB5 - MUSIC")
+                .setDescription("Die Wiedergabe wurde gestoppt")
+                .build();
+    }
+    public static MessageEmbed musicStopped() {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
                 .setTitle("⚠ - MUSIC")
                 .setDescription("Du musst in einem VoiceChannel sein um Musik abzuspielen")
                 .build();
@@ -258,11 +265,16 @@ public class MsgPresets extends EmbedBuilder {
 
     public static MessageEmbed mapSaves(Map<String, String> map) {
         EmbedBuilder builder = new EmbedBuilder().setColor(defaultColor).setTitle("\uD83D\uDD17 - MAP");
+        String mapString = "";
         if (map.isEmpty()) {
             builder.setDescription("Dein Map ist leer");
         } else {
-            map.forEach((key, value) -> builder.addField(key, value, false));
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                mapString += "-" + entry.getKey() + ":\n" + entry.getValue() + "\n";
+            }
+            mapString = mapString.substring(0, mapString.length() - 2);
         }
+        builder.setDescription(mapString);
         return builder.build();
     }
     public static MessageEmbed mapNoSuchKey(String key) {
@@ -283,7 +295,7 @@ public class MsgPresets extends EmbedBuilder {
         return new EmbedBuilder()
                 .setColor(defaultColor)
                 .setTitle("\uD83D\uDD17 - MAP")
-                .setDescription("\"" + value + "\" wurde erfolgreich an den Schlüssel \"" + key + "\" gebunden")
+                .setDescription("\"" + value + "\" wurde erfolgreich an den Schlüssel \" " + key + "\" gebunden")
                 .build();
     }
 }
