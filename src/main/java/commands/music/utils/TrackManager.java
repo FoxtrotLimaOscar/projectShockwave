@@ -5,6 +5,7 @@ import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 
 import java.util.*;
@@ -24,7 +25,7 @@ public class TrackManager extends AudioEventAdapter {
     public void queue(QueueItem queueItem) {
         queue.add(queueItem);
         if (PLAYER.getPlayingTrack() == null) {
-            PLAYER.playTrack(firstTrack());
+            PLAYER.playTrack(receiveTrack());
         }
     }
 
@@ -34,6 +35,10 @@ public class TrackManager extends AudioEventAdapter {
 
     public void purgeQueue() {
         queue.clear();
+    }
+
+    public void remove(QueueItem item) {
+        this.queue.remove(item);
     }
 
     public void shuffleQueue() {
@@ -49,19 +54,19 @@ public class TrackManager extends AudioEventAdapter {
 
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
-        QueueItem queueItem = queue.element();
-        VoiceChannel vChan = queueItem.getMember().getVoiceState().getChannel();
+        Member member = queue.peekFirst().getMember();
+        VoiceChannel vChan = member.getVoiceState().getChannel();
         if (vChan == null) {
             player.stopTrack();
         } else {
-            queueItem.getMember().getGuild().getAudioManager().openAudioConnection(vChan);
+            member.getGuild().getAudioManager().openAudioConnection(vChan);
         }
     }
     //Löscht den ersten/aktuellen Track aus der queue,  und wenn es einen weiteren Track giebt wird dieser abgespielt
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-        playedTrack();
-        if (queue.isEmpty()) {
+        AudioTrack recievedTrack = receiveTrack();
+        if (recievedTrack == null) {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -69,27 +74,19 @@ public class TrackManager extends AudioEventAdapter {
                 }
             }, 0);
         } else {
-            player.playTrack(firstTrack());
+            player.playTrack(recievedTrack);
         }
     }
 
-    private AudioTrack firstTrack() {
-        cleanQueue();
-        return queue.peekFirst().getTrack();
-    }
-
-    private void playedTrack() {
-        cleanQueue();
-        if (!queue.isEmpty() && queue.peekFirst().finishedPlaying()) {
+    private AudioTrack receiveTrack() {
+        if (queue.isEmpty()) {
+            return null;
+        }
+        AudioTrack track = queue.peekFirst().receiveTrack();
+        if (track == null) {
             queue.poll();
+            track = queue.peekFirst().receiveTrack();
         }
-    }
-
-    private void cleanQueue() {
-        for (QueueItem item : queue) {
-            if (item.isEmpty()) {
-                queue.remove(item);
-            }
-        }
+        return track;
     }
 }

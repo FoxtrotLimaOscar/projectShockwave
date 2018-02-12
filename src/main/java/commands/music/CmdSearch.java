@@ -94,10 +94,7 @@ public class CmdSearch implements CmdInterface, SearchResultHandler, ReactHandle
     private void queueFoundSong(AudioTrack track, Member member, Message msg) {
         Guild guild = member.getGuild();
         TrackManager manager = PlayerManager.getTrackManager(guild);
-        AudioTrackInfo info = track.getInfo();
-        if (!manager.getQueue().isEmpty()) {
-            msg.editMessage(MsgPresets.musicQueuedInfo(false, info.title, info.uri)).queue();
-        }
-        manager.queue(new QueueItem(track, member, channel));
+        msg.delete().queue();
+        manager.queue(new QueueItem(track, member));
     }
 }

@@ -74,7 +74,7 @@ public class CmdPlay implements CmdInterface, SearchResultHandler {
         } else {
             stackTracks.addAll(foundTracks);
         }
-        manager.queue(new QueueItem(stackTracks, member, channel, playlist.getName()));
+        manager.queue(new QueueItem(stackTracks, member, playlist.getName()));
     }
 
     static String makeSearchReady(String identifier) {
