@@ -3,16 +3,13 @@ package commands.music;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import commands.CmdHandler;
-import commands.CmdInterface;
-import commands.Command;
-import commands.ReactHandler;
+import commands.*;
 import commands.music.utils.PlayerManager;
+import commands.music.utils.QueueItem;
 import commands.music.utils.SearchResultHandler;
 import commands.music.utils.TrackManager;
 import core.Permission;
 import core.database.Database;
-import commands.ReactEvent;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import tools.MsgPresets;
@@ -73,7 +70,7 @@ public class CmdSearch implements CmdInterface, SearchResultHandler, ReactHandle
         } else if (sameUser && emote.equals("❌")) {
             reactEvent.getMessage().delete().queue();
         } else {
-            CmdHandler.reactionTickets.put(reactEvent.getMessageID(), this);
+            CmdHandler.queueReactionTicket(reactEvent.getMessageLink(), this);
         }
     }
 
@@ -88,7 +85,7 @@ public class CmdSearch implements CmdInterface, SearchResultHandler, ReactHandle
             msg.addReaction("\u0034\u20E3").queue();
             msg.addReaction("\u0035\u20E3").queue();
             msg.addReaction("❌").queue();
-            CmdHandler.reactionTickets.put(msg.getId(), this);
+            CmdHandler.queueReactionTicket(new MsgLink(msg), this);
         } else {
              this.channel.sendMessage(MsgPresets.musicNoResultsFound()).queue();
         }
@@ -101,6 +98,6 @@ public class CmdSearch implements CmdInterface, SearchResultHandler, ReactHandle
         if (!manager.getQueue().isEmpty()) {
             msg.editMessage(MsgPresets.musicQueuedInfo(false, info.title, info.uri)).queue();
         }
-        manager.queue(track, member);
+        manager.queue(new QueueItem(track, member, channel));
     }
 }

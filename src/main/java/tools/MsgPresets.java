@@ -277,6 +277,13 @@ public class MsgPresets extends EmbedBuilder {
                 .setDescription("Du musst in einem VoiceChannel sein um Musik abzuspielen")
                 .build();
     }
+    public static MessageEmbed musicWrongTextChannel(TextChannel channel) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚠ - MUSIC")
+                .setDescription("Alle Infos zur Queue landen in " + channel.getAsMention())
+                .build();
+    }
 
 
 

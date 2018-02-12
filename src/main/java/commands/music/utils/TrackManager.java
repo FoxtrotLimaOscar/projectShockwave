@@ -4,20 +4,15 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.VoiceChannel;
-import core.database.Database;
-import tools.MsgPresets;
 
 import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrackManager extends AudioEventAdapter {
     private final Guild GUILD;
     private final AudioPlayer PLAYER;
-    private final LinkedList<AudioInfo> queue;
+    private final LinkedList<QueueItem> queue;
 
     public TrackManager(AudioPlayer player, Guild guild) {
         this.GUILD = guild;
@@ -25,35 +20,16 @@ public class TrackManager extends AudioEventAdapter {
         this.queue = new LinkedList<>();
     }
 
-    public AudioInfo queue(AudioTrack track, Member author) {
-        return this.queue(new AudioInfo(track, author));
-    }
-
-    public AudioInfo queue(AudioInfo audioInfo) {
-        queue.add(audioInfo);
+    //Fügt Tracks der Queue hinzu und spielt den ersten ab wenn gerade kein Track gespielt wird
+    public void queue(QueueItem queueItem) {
+        queue.add(queueItem);
         if (PLAYER.getPlayingTrack() == null) {
-            PLAYER.playTrack(audioInfo.getTrack());
-        }
-        return audioInfo;
-    }
-
-    public boolean dequeue(AudioInfo audioInfo) {
-        if (audioInfo.equals(queue.element())) {
-            return false;
-        } else {
-            queue.removeLastOccurrence(audioInfo);
-            return true;
+            PLAYER.playTrack(firstTrack());
         }
     }
 
-    public Set<AudioInfo> getQueue() {
+    public Set<QueueItem> getQueue() {
         return new LinkedHashSet<>(queue);
-    }
-
-    public AudioInfo getInfo(AudioTrack track) {
-        return queue.stream()
-                .filter(info -> info.getTrack().equals(track))
-                .findFirst().orElse(null);
     }
 
     public void purgeQueue() {
@@ -61,8 +37,8 @@ public class TrackManager extends AudioEventAdapter {
     }
 
     public void shuffleQueue() {
-        List<AudioInfo> cQueue = new ArrayList<>(getQueue());
-        AudioInfo current = cQueue.get(0);
+        List<QueueItem> cQueue = new ArrayList<>(getQueue());
+        QueueItem current = cQueue.get(0);
         cQueue.remove(0);
         Collections.shuffle(cQueue);
         cQueue.add(0, current);
@@ -71,22 +47,20 @@ public class TrackManager extends AudioEventAdapter {
     }
 
 
-
     @Override
     public void onTrackStart(AudioPlayer player, AudioTrack track) {
-        AudioInfo info = queue.element();
-        Guild guild = info.getAuthor().getGuild();
-        VoiceChannel vChan = info.getAuthor().getVoiceState().getChannel();
+        QueueItem queueItem = queue.element();
+        VoiceChannel vChan = queueItem.getMember().getVoiceState().getChannel();
         if (vChan == null) {
             player.stopTrack();
         } else {
-            info.getAuthor().getGuild().getAudioManager().openAudioConnection(vChan);
-            Database.getGuild(guild).getMusicChannel().getTextChannel().sendMessage(MsgPresets.musicPlayingInfo(track.getInfo().title, track.getInfo().uri)).queue();
+            queueItem.getMember().getGuild().getAudioManager().openAudioConnection(vChan);
         }
     }
+    //Löscht den ersten/aktuellen Track aus der queue,  und wenn es einen weiteren Track giebt wird dieser abgespielt
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-        queue.poll();
+        playedTrack();
         if (queue.isEmpty()) {
             new Timer().schedule(new TimerTask() {
                 @Override
@@ -95,7 +69,27 @@ public class TrackManager extends AudioEventAdapter {
                 }
             }, 0);
         } else {
-            player.playTrack(queue.element().getTrack());
+            player.playTrack(firstTrack());
+        }
+    }
+
+    private AudioTrack firstTrack() {
+        cleanQueue();
+        return queue.peekFirst().getTrack();
+    }
+
+    private void playedTrack() {
+        cleanQueue();
+        if (!queue.isEmpty() && queue.peekFirst().finishedPlaying()) {
+            queue.poll();
+        }
+    }
+
+    private void cleanQueue() {
+        for (QueueItem item : queue) {
+            if (item.isEmpty()) {
+                queue.remove(item);
+            }
         }
     }
 }

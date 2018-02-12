@@ -9,7 +9,7 @@ public class Statics {
     // first number             big changes
     // second number       small changes
     // third number            bugfixes
-    public final String VERSION_NUMBER = "1.9.0";
+    public final String VERSION_NUMBER = "1.9.1";
 
     // The name of the current version (second and third number)
     public final String VERSION_NAME = "justChillin";

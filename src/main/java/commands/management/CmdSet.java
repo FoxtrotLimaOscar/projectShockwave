@@ -22,7 +22,7 @@ public class CmdSet implements CmdInterface {
 
     @Override
     public String description() {
-        return "Lässt ";
+        return "Ändert die Einstellungen";
     }
 
     @Override

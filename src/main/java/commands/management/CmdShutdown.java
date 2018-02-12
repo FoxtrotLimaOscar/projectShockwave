@@ -1,12 +1,8 @@
 package commands.management;
 
-import commands.CmdHandler;
-import commands.CmdInterface;
-import commands.Command;
-import commands.ReactHandler;
+import commands.*;
 import core.Permission;
 import core.database.groups.GSettings;
-import commands.ReactEvent;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
@@ -27,7 +23,7 @@ public class CmdShutdown implements CmdInterface, ReactHandler {
         Message msg = cmd.getEvent().getChannel().sendMessage(MsgPresets.ShutdownAccept()).complete();
         msg.addReaction("✅").queue();
         msg.addReaction("❌").queue();
-        CmdHandler.reactionTickets.put(msg.getId(), this);
+        CmdHandler.queueReactionTicket(new MsgLink(msg), this);
         user = cmd.getEvent().getAuthor();
         if (cmd.hasParam(1)) {
             this.reason = cmd.getRaw(1);
@@ -47,7 +43,7 @@ public class CmdShutdown implements CmdInterface, ReactHandler {
             Message msg = reactEvent.getMessage();
             msg.delete().queue();
         } else {
-            CmdHandler.reactionTickets.put(reactEvent.getMessageID(), this);
+            CmdHandler.queueReactionTicket(reactEvent.getMessageLink(), this);
         }
     }
 
