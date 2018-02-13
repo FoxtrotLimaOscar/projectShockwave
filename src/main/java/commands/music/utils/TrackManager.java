@@ -34,6 +34,7 @@ public class TrackManager extends AudioEventAdapter {
     }
 
     public void purgeQueue() {
+        clear();
         queue.clear();
     }
 
@@ -81,12 +82,20 @@ public class TrackManager extends AudioEventAdapter {
     private AudioTrack receiveTrack() {
         if (queue.isEmpty()) {
             return null;
+        } else {
+            AudioTrack track = queue.peekFirst().receiveTrack();
+            if (track == null) {
+                queue.poll();
+                if (queue.isEmpty()) return null;
+                track = queue.peekFirst().receiveTrack();
+            }
+            return track;
         }
-        AudioTrack track = queue.peekFirst().receiveTrack();
-        if (track == null) {
-            queue.poll();
-            track = queue.peekFirst().receiveTrack();
+    }
+
+    private void clear() {
+        for (QueueItem queueItem : queue) {
+            queueItem.clear();
         }
-        return track;
     }
 }

@@ -71,6 +71,11 @@ public class QueueItem implements ReactHandler {
         msg.clearReactions().queue();
     }
 
+    public void clear() {
+        this.tracks.clear();
+        this.link.getMessage().delete().queue();
+    }
+
     @Override
     public void emoteUpdate(ReactEvent reactEvent) {
         boolean sameUser = this.member.getUser().getId().equals(reactEvent.getUser().getId());
