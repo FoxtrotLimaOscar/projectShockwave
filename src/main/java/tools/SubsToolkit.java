@@ -35,4 +35,12 @@ public class SubsToolkit {
         return String.format("%02d", odt.getDayOfMonth()) + "." + String.format("%02d", odt.getMonthValue()) + "." +
                 String.format("%04d", odt.getYear()) + "-" + String.format("%02d", odt.getHour()) + ":" + String.format("%02d", odt.getMinute());
     }
+
+    public static String limitString(String string, int length) {
+        if (string.length() <= length) {
+            return string;
+        } else {
+            return string.substring(0, length);
+        }
+    }
 }

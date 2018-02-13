@@ -2,3 +2,4 @@ config.txt
 cmdlog.txt
 *.obj
 cmdlog.txt
+.idea/workspace.xml

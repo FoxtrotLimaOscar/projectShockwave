@@ -2,19 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49c827d8-b4b7-42c9-a682-855903928733" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/commands/management/CmdSetBot.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/commands/management/CmdSetGuild.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/commands/management/CmdSetUser.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/commands/management/CmdSet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/commands/management/CmdSet.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/commands/music/utils/QueueItem.class" afterPath="$PROJECT_DIR$/target/classes/commands/music/utils/QueueItem.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/commands/music/utils/TrackManager$1.class" afterPath="$PROJECT_DIR$/target/classes/commands/music/utils/TrackManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/commands/music/utils/TrackManager.class" afterPath="$PROJECT_DIR$/target/classes/commands/music/utils/TrackManager.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/commands/management/CmdSetGuild.class" afterPath="$PROJECT_DIR$/target/classes/commands/management/CmdSetGuild.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/core/Statics.class" afterPath="$PROJECT_DIR$/target/classes/core/Statics.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/commands/music/utils/QueueItem.java" afterPath="$PROJECT_DIR$/src/main/java/commands/music/utils/QueueItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/commands/management/CmdSetBot.java" afterPath="$PROJECT_DIR$/src/main/java/commands/management/CmdSetBot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/commands/management/CmdSetGuild.java" afterPath="$PROJECT_DIR$/src/main/java/commands/management/CmdSetGuild.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/commands/management/CmdSetUser.java" afterPath="$PROJECT_DIR$/src/main/java/commands/management/CmdSetUser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/commands/music/utils/TrackManager.java" afterPath="$PROJECT_DIR$/src/main/java/commands/music/utils/TrackManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/core/Main.java" afterPath="$PROJECT_DIR$/src/main/java/core/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/core/Statics.java" afterPath="$PROJECT_DIR$/src/main/java/core/Statics.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/core/database/structures/MusicChannel.java" afterPath="$PROJECT_DIR$/src/main/java/core/database/structures/MusicChannel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tools/SubsToolkit.java" afterPath="$PROJECT_DIR$/src/main/java/tools/SubsToolkit.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -35,26 +34,17 @@
       <file leaf-file-name="TrackManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/commands/music/utils/TrackManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1021">
-              <caret line="38" column="5" lean-forward="true" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+            <state relative-caret-position="617">
+              <caret line="117" column="0" lean-forward="true" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
               <folding>
-                <element signature="e#1105#1106#0" expanded="true" />
-                <element signature="e#1154#1155#0" expanded="true" />
-                <element signature="e#1274#1275#0" expanded="true" />
-                <element signature="e#1313#1314#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CmdSkip.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/commands/music/CmdSkip.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="17" column="48" lean-forward="true" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
-              <folding>
-                <element signature="e#769#770#0" expanded="true" />
-                <element signature="e#805#806#0" expanded="true" />
+                <element signature="e#3179#3180#0" expanded="true" />
+                <element signature="e#3219#3220#0" expanded="true" />
+                <element signature="e#3252#3253#0" expanded="true" />
+                <element signature="e#3292#3293#0" expanded="true" />
+                <element signature="e#3319#3320#0" expanded="true" />
+                <element signature="e#3357#3358#0" expanded="true" />
+                <element signature="e#3385#3386#0" expanded="true" />
+                <element signature="e#3424#3425#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -63,19 +53,61 @@
       <file leaf-file-name="CmdSetGuild.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/commands/management/CmdSetGuild.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="19" column="38" lean-forward="false" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
+            <state relative-caret-position="617">
+              <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#317#318#0" expanded="true" />
-                <element signature="e#356#357#0" expanded="true" />
-                <element signature="e#659#660#0" expanded="true" />
-                <element signature="e#686#687#0" expanded="true" />
-                <element signature="e#735#736#0" expanded="true" />
-                <element signature="e#762#763#0" expanded="true" />
-                <element signature="e#807#808#0" expanded="true" />
-                <element signature="e#834#835#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MusicChannel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/core/database/structures/MusicChannel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="386">
+              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+              <folding>
+                <element signature="e#277#278#0" expanded="true" />
+                <element signature="e#315#316#0" expanded="true" />
+                <element signature="e#347#348#0" expanded="true" />
+                <element signature="e#381#382#0" expanded="true" />
+                <element signature="e#532#533#0" expanded="true" />
+                <element signature="e#567#568#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StringTools.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tools/StringTools.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="13" column="5" lean-forward="false" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+              <folding>
+                <element signature="e#423#424#0" expanded="true" />
+                <element signature="e#475#476#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SubsToolkit.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tools/SubsToolkit.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="383">
+              <caret line="36" column="5" lean-forward="true" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/core/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -83,9 +115,19 @@
       <file leaf-file-name="CmdSetUser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/commands/management/CmdSetUser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="52">
-              <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
-              <folding />
+            <state relative-caret-position="364">
+              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#209#210#0" expanded="true" />
+                <element signature="e#236#237#0" expanded="true" />
+                <element signature="e#350#351#0" expanded="true" />
+                <element signature="e#377#378#0" expanded="true" />
+                <element signature="e#426#427#0" expanded="true" />
+                <element signature="e#453#454#0" expanded="true" />
+                <element signature="e#498#499#0" expanded="true" />
+                <element signature="e#525#526#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -93,35 +135,29 @@
       <file leaf-file-name="CmdSetBot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/commands/management/CmdSetBot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CmdPlay.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/commands/music/CmdPlay.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="74" column="44" lean-forward="true" selection-start-line="74" selection-start-column="44" selection-end-line="74" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QueueItem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/commands/music/utils/QueueItem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1501">
-              <caret line="74" column="28" lean-forward="true" selection-start-line="74" selection-start-column="28" selection-end-line="74" selection-end-column="28" />
+            <state relative-caret-position="26">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1389#1390#0" expanded="true" />
-                <element signature="e#1430#1431#0" expanded="true" />
-                <element signature="e#1463#1464#0" expanded="true" />
-                <element signature="e#1497#1498#0" expanded="true" />
+                <element signature="e#208#209#0" expanded="true" />
+                <element signature="e#235#236#0" expanded="true" />
+                <element signature="e#349#350#0" expanded="true" />
+                <element signature="e#376#377#0" expanded="true" />
+                <element signature="e#425#426#0" expanded="true" />
+                <element signature="e#452#453#0" expanded="true" />
+                <element signature="e#497#498#0" expanded="true" />
+                <element signature="e#524#525#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CmdSettings.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/commands/management/CmdSettings.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="640">
+              <caret line="51" column="58" lean-forward="false" selection-start-line="51" selection-start-column="58" selection-end-line="51" selection-end-column="58" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -129,18 +165,8 @@
       <file leaf-file-name="Statics.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/core/Statics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="14" column="53" lean-forward="true" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CmdStop.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/commands/music/CmdStop.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="18" column="51" lean-forward="false" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
+            <state relative-caret-position="260">
+              <caret line="11" column="48" lean-forward="false" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -174,14 +200,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/tools/SubsConfig/ConfigItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/settings/BotConfig.java" />
-        <option value="$PROJECT_DIR$/config.txt" />
         <option value="$PROJECT_DIR$/src/main/java/core/Permission.java" />
         <option value="$PROJECT_DIR$/src/main/java/tools/Table.java" />
         <option value="$PROJECT_DIR$/src/main/java/core/BotConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/tools/ProjectTools.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tools/SubsToolkit.java" />
         <option value="$PROJECT_DIR$/src/main/java/commands/management/Set.java" />
         <option value="$PROJECT_DIR$/src/main/java/commands/music/SearchResults.java" />
         <option value="$PROJECT_DIR$/src/main/java/listener/readyListener.java" />
@@ -192,7 +214,6 @@
         <option value="$PROJECT_DIR$/src/main/java/commands/Command.java" />
         <option value="$PROJECT_DIR$/src/main/java/commands/music/utils/SearchResultHandler.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/main/java/core/database/structures/MusicChannel.java" />
         <option value="$MAVEN_REPOSITORY$/org/slf4j/slf4j-simple/1.7.21/slf4j-simple-1.7.21.jar!/org/slf4j/impl/SimpleLogger.class" />
         <option value="$PROJECT_DIR$/src/main/java/core/database/groups/USettings.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
@@ -215,15 +236,20 @@
         <option value="$PROJECT_DIR$/src/main/java/commands/music/utils/AudioInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/commands/music/utils/QueuedMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/commands/music/utils/TrackStoppedHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/core/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/commands/music/utils/MusicQueue.java" />
         <option value="$PROJECT_DIR$/cmdlog.txt" />
         <option value="$PROJECT_DIR$/src/main/java/commands/music/CmdPlay.java" />
         <option value="$PROJECT_DIR$/src/main/java/tools/MsgPresets.java" />
         <option value="$PROJECT_DIR$/src/main/java/commands/music/CmdSearch.java" />
-        <option value="$PROJECT_DIR$/src/main/java/core/Statics.java" />
         <option value="$PROJECT_DIR$/src/main/java/commands/music/utils/QueueItem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/core/Statics.java" />
+        <option value="$PROJECT_DIR$/src/main/java/core/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/commands/management/CmdSetBot.java" />
+        <option value="$PROJECT_DIR$/src/main/java/commands/management/CmdSetUser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tools/StringTools.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tools/SubsToolkit.java" />
         <option value="$PROJECT_DIR$/src/main/java/commands/music/utils/TrackManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/core/database/structures/MusicChannel.java" />
         <option value="$PROJECT_DIR$/src/main/java/commands/management/CmdSetGuild.java" />
       </list>
     </option>
@@ -252,7 +278,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -334,13 +359,22 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="listener" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="projectShockwave" type="b2602c69:ProjectViewProjectNode" />
+              <item name="projectShockwave" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="tools" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -550,7 +584,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="23" />
+      <option name="time" value="25" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -562,20 +596,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/commands/Command.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/sedmelluq/lavaplayer/1.2.34/lavaplayer-1.2.34-sources.jar!/com/sedmelluq/discord/lavaplayer/track/playback/LocalAudioTrackExecutor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1898">
-          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/sedmelluq/lavaplayer/1.2.47/lavaplayer-1.2.47.jar!/com/sedmelluq/discord/lavaplayer/player/AudioPlayer.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -682,25 +702,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/commands/management/CmdSettings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1144">
-          <caret line="51" column="58" lean-forward="false" selection-start-line="51" selection-start-column="58" selection-end-line="51" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/net/dv8tion/JDA/3.5.0_327/JDA-3.5.0_327-sources.jar!/net/dv8tion/jda/core/entities/TextChannel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="49" column="100" lean-forward="false" selection-start-line="49" selection-start-column="100" selection-end-line="49" selection-end-column="100" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/database/structures/MusicChannel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -717,7 +722,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="624">
           <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -726,13 +730,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
           <caret line="275" column="52" lean-forward="true" selection-start-line="275" selection-start-column="52" selection-end-line="275" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1118">
-          <caret line="59" column="55" lean-forward="false" selection-start-line="59" selection-start-column="55" selection-end-line="59" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -793,14 +790,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/Statics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="14" column="53" lean-forward="true" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/commands/music/CmdStop.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -811,23 +800,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/commands/music/utils/QueueItem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1501">
-          <caret line="74" column="28" lean-forward="true" selection-start-line="74" selection-start-column="28" selection-end-line="74" selection-end-column="28" />
+        <state relative-caret-position="1664">
+          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1389#1390#0" expanded="true" />
-            <element signature="e#1430#1431#0" expanded="true" />
-            <element signature="e#1463#1464#0" expanded="true" />
-            <element signature="e#1497#1498#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <marker date="1518541621804" expanded="true" signature="2930:2954" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/commands/music/CmdPlay.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="74" column="44" lean-forward="true" selection-start-line="74" selection-start-column="44" selection-end-line="74" selection-end-column="44" />
-          <folding />
+        <state relative-caret-position="1274">
+          <caret line="74" column="44" lean-forward="false" selection-start-line="74" selection-start-column="44" selection-end-line="74" selection-end-column="44" />
+          <folding>
+            <marker date="1518541621801" expanded="true" signature="2665:2848" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -835,7 +823,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -843,7 +830,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -851,7 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="619" column="0" lean-forward="false" selection-start-line="619" selection-start-column="0" selection-end-line="619" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -859,7 +844,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -867,46 +851,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
           <caret line="248" column="0" lean-forward="true" selection-start-line="248" selection-start-column="0" selection-end-line="248" selection-end-column="0" />
-          <folding>
-            <element signature="e#5101#5102#0" expanded="true" />
-            <element signature="e#5176#5177#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/commands/management/CmdSetUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/commands/management/CmdSetBot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/commands/music/utils/TrackManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1021">
-          <caret line="38" column="5" lean-forward="true" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
-          <folding>
-            <element signature="e#1105#1106#0" expanded="true" />
-            <element signature="e#1154#1155#0" expanded="true" />
-            <element signature="e#1274#1275#0" expanded="true" />
-            <element signature="e#1313#1314#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/commands/music/CmdSkip.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="17" column="48" lean-forward="true" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
+        <state relative-caret-position="286">
+          <caret line="17" column="48" lean-forward="false" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
           <folding>
             <element signature="e#769#770#0" expanded="true" />
             <element signature="e#805#806#0" expanded="true" />
@@ -914,20 +865,123 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/commands/management/CmdSetGuild.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/core/Statics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="19" column="38" lean-forward="false" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
+        <state relative-caret-position="260">
+          <caret line="11" column="48" lean-forward="false" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/commands/management/CmdSetBot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#317#318#0" expanded="true" />
-            <element signature="e#356#357#0" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-            <element signature="e#686#687#0" expanded="true" />
-            <element signature="e#735#736#0" expanded="true" />
-            <element signature="e#762#763#0" expanded="true" />
-            <element signature="e#807#808#0" expanded="true" />
-            <element signature="e#834#835#0" expanded="true" />
+            <element signature="e#208#209#0" expanded="true" />
+            <element signature="e#235#236#0" expanded="true" />
+            <element signature="e#349#350#0" expanded="true" />
+            <element signature="e#376#377#0" expanded="true" />
+            <element signature="e#425#426#0" expanded="true" />
+            <element signature="e#452#453#0" expanded="true" />
+            <element signature="e#497#498#0" expanded="true" />
+            <element signature="e#524#525#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/commands/management/CmdSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="51" column="58" lean-forward="false" selection-start-line="51" selection-start-column="58" selection-end-line="51" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/commands/management/CmdSetUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#209#210#0" expanded="true" />
+            <element signature="e#236#237#0" expanded="true" />
+            <element signature="e#350#351#0" expanded="true" />
+            <element signature="e#377#378#0" expanded="true" />
+            <element signature="e#426#427#0" expanded="true" />
+            <element signature="e#453#454#0" expanded="true" />
+            <element signature="e#498#499#0" expanded="true" />
+            <element signature="e#525#526#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/core/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tools/StringTools.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="13" column="5" lean-forward="false" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+          <folding>
+            <element signature="e#423#424#0" expanded="true" />
+            <element signature="e#475#476#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tools/SubsToolkit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="36" column="5" lean-forward="true" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/commands/music/utils/TrackManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="617">
+          <caret line="117" column="0" lean-forward="true" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+          <folding>
+            <element signature="e#3179#3180#0" expanded="true" />
+            <element signature="e#3219#3220#0" expanded="true" />
+            <element signature="e#3252#3253#0" expanded="true" />
+            <element signature="e#3292#3293#0" expanded="true" />
+            <element signature="e#3319#3320#0" expanded="true" />
+            <element signature="e#3357#3358#0" expanded="true" />
+            <element signature="e#3385#3386#0" expanded="true" />
+            <element signature="e#3424#3425#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/core/database/structures/MusicChannel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+          <folding>
+            <element signature="e#277#278#0" expanded="true" />
+            <element signature="e#315#316#0" expanded="true" />
+            <element signature="e#347#348#0" expanded="true" />
+            <element signature="e#381#382#0" expanded="true" />
+            <element signature="e#532#533#0" expanded="true" />
+            <element signature="e#567#568#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/commands/management/CmdSetGuild.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="617">
+          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

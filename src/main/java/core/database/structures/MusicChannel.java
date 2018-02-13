@@ -13,13 +13,15 @@ public class MusicChannel {
     public boolean isForced() {
         return this.forced;
     }
-    public void setForced(boolean forced) {
+    public MusicChannel setForced(boolean forced) {
         this.forced = forced;
+        return this;
     }
     public TextChannel getTextChannel() {
         return this.channel;
     }
-    public void setChannel(TextChannel channel) {
+    public MusicChannel setTextChannel(TextChannel channel) {
         this.channel = channel;
+        return this;
     }
 }

@@ -98,4 +98,20 @@ public class TrackManager extends AudioEventAdapter {
             queueItem.clear();
         }
     }
+
+    public void setVolume(int volume) {
+        PLAYER.setVolume(volume);
+    }
+
+    public boolean isPaused() {
+        return PLAYER.isPaused();
+    }
+
+    public void pause() {
+        PLAYER.setPaused(true);
+    }
+
+    public void resume() {
+        PLAYER.setPaused(false);
+    }
 }

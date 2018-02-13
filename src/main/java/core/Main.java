@@ -63,6 +63,9 @@ public class Main {
         CmdHandler.commands.put("dev", new CmdDev());
         CmdHandler.commands.put("search", new CmdSearch());
         CmdHandler.commands.put("map", new CmdMap());
+        CmdHandler.commands.put("setguild", new CmdSetGuild());
+        CmdHandler.commands.put("setuser", new CmdSetUser());
+        CmdHandler.commands.put("setbot", new CmdSetBot());
     }
 
 
