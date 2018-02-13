@@ -17,14 +17,14 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CmdPlay implements CmdInterface, SearchResultHandler, ReactHandler {
+public class CmdPlay implements CmdInterface, SearchResultHandler {
 
     private Member member;
     private TextChannel channel;
 
     @Override
     public Permission permission() {
-        return Permission.NONE;
+        return Permission.DJ;
     }
 
     @Override
@@ -38,14 +38,6 @@ public class CmdPlay implements CmdInterface, SearchResultHandler, ReactHandler 
             PlayerManager.searchTrack(this.member.getGuild(), identifier, this);
         } else {
             this.channel.sendMessage(MsgPresets.musicNoSearchfactor(Database.getGuild(this.member.getGuild()).getPrefix())).queue();
-        }
-    }
-
-    @Override
-    public void emoteUpdate(ReactEvent reactEvent) {
-        boolean sameUser = this.member.getUser().equals(reactEvent.getUser());
-        if (sameUser && reactEvent.getEmote().equals("❌")) {
-            reactEvent.getMessage().getTextChannel().sendMessage("COMING SOON").queue();
         }
     }
 
@@ -76,28 +68,13 @@ public class CmdPlay implements CmdInterface, SearchResultHandler, ReactHandler 
         }
         TrackManager manager = PlayerManager.getTrackManager(member.getGuild());
         List<AudioTrack> foundTracks = playlist.getTracks();
-        LinkedList<AudioTrack> futureTracks = new LinkedList<>();
+        LinkedList<AudioTrack> stackTracks = new LinkedList<>();
         if(playlist.isSearchResult()) {
-            futureTracks.add(foundTracks.get(0));
+            stackTracks.add(foundTracks.get(0));
         } else {
-            futureTracks.addAll(foundTracks);
+            stackTracks.addAll(foundTracks);
         }
-        if (futureTracks.size() == 1 && !manager.getQueue().isEmpty()) {
-            Message queuedMsg ;
-            AudioTrack firstTrack = futureTracks.get(0);
-            AudioTrackInfo firstTrackInfo = firstTrack.getInfo();
-            AudioInfo audioInfo = new AudioInfo(firstTrack, member);
-            queuedMsg = channel.sendMessage(MsgPresets.musicQueuedInfo(false, firstTrackInfo.title, firstTrackInfo.uri)).complete();
-            new QueuedMessage(queuedMsg, audioInfo);
-            manager.queue(audioInfo);
-            return;
-        } else if (futureTracks.size() > 1) {
-            Collections.shuffle(futureTracks);
-            channel.sendMessage(MsgPresets.musicQueuedInfo(true, playlist.getName(), futureTracks.get(0).getInfo().uri)).queue();
-        }
-        for (AudioTrack track : futureTracks) {
-            manager.queue(track, member);
-        }
+        manager.queue(new QueueItem(stackTracks, member, playlist.getName()));
     }
 
     static String makeSearchReady(String identifier) {

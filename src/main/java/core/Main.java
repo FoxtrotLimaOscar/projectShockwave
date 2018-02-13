@@ -58,7 +58,6 @@ public class Main {
         CmdHandler.commands.put("help", new CmdHelp());
         CmdHandler.commands.put("settings", new CmdSettings());
         CmdHandler.commands.put("play", new CmdPlay());
-        CmdHandler.commands.put("shuffle", new CmdShuffle());
         CmdHandler.commands.put("skip", new CmdSkip());
         CmdHandler.commands.put("stop", new CmdStop());
         CmdHandler.commands.put("dev", new CmdDev());

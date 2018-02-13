@@ -8,16 +8,7 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
-import commands.CmdHandler;
-import commands.ReactHandler;
 import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.TextChannel;
-import core.database.Database;
-import tools.MsgPresets;
-import tools.SubsToolkit;
 
 import java.util.*;
 
@@ -54,64 +45,6 @@ public class PlayerManager {
 
     public static boolean isIdle(Guild guild) {
         return !hasPlayer(guild) || getPlayer(guild).getPlayingTrack() == null;
-    }
-
-    public static void loadTrack(String identifier, int selection, boolean shuffle, Member member, TextChannel channel, ReactHandler reactHandler) {
-        Guild guild = member.getGuild();
-        AudioPlayer player = getPlayer(guild);
-        ArrayList<AudioTrack> gonnaQueue = new ArrayList<>();
-        Set<AudioInfo> activeQueue = PlayerManager.getTrackManager(guild).getQueue();
-
-        //TODO Einstellbar machen
-        player.setVolume(Database.getGuild(guild).getVolume());
-        //TODO: Einstellbar machen
-        MANAGER.setFrameBufferDuration(15000);
-        MANAGER.loadItemOrdered(guild, identifier, new AudioLoadResultHandler() {
-
-            @Override
-            public void trackLoaded(AudioTrack track) {
-                getTrackManager(guild).queue(track, member);
-            }
-
-            @Override
-            public void playlistLoaded(AudioPlaylist playlist) {
-                if (playlist.isSearchResult()) {
-                    gonnaQueue.add(playlist.getTracks().get(selection));
-                } else {
-                    gonnaQueue.addAll(playlist.getTracks());
-                }
-                if (shuffle) {
-                    Collections.shuffle(gonnaQueue);
-                }
-                //TODO: Playlistlimit Einstellbar machen
-                for (AudioTrack track : gonnaQueue.subList(0, SubsToolkit.lowerOf(gonnaQueue.size(), 100))) {
-                    trackLoaded(track);
-                }
-                Message msg = null;
-                AudioTrackInfo info = playlist.getTracks().get(0).getInfo();
-                if (gonnaQueue.size() > 1) {
-                    msg = channel.sendMessage(MsgPresets.musicQueuedInfo(true, playlist.getName(), info.uri)).complete();
-                } else if (!activeQueue.isEmpty()) {
-                    msg = channel.sendMessage(MsgPresets.musicQueuedInfo(false, info.title, info.uri)).complete();
-                }
-                try {
-                    msg.addReaction("❌").queue();
-                    CmdHandler.reactionTickets.put(msg.getId(), reactHandler);
-                } catch (Exception e) {
-                    //DO NOTHING
-                }
-            }
-
-            @Override
-            public void noMatches() {
-                channel.sendMessage(MsgPresets.musicNoResultsFound()).queue();
-            }
-
-            @Override
-            public void loadFailed(FriendlyException exception) {
-                exception.printStackTrace();
-            }
-        });
     }
 
     public static void searchTrack(Guild guild, String identifier, SearchResultHandler handler) {

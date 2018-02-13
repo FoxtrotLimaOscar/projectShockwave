@@ -1,11 +1,7 @@
 package commands.management;
 
-import commands.CmdHandler;
-import commands.CmdInterface;
-import commands.Command;
-import commands.ReactHandler;
+import commands.*;
 import core.Permission;
-import commands.ReactEvent;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
@@ -25,7 +21,7 @@ public class CmdSettings implements CmdInterface, ReactHandler {
     public void run(Command cmd) {
         this.member = cmd.getEvent().getMember();
         if (cmd.getSlices().length > 1) {
-            page = Integer.getInteger(cmd.getSlice(1));
+            page = Integer.parseInt(cmd.getSlice(1));
             if (page > 3 || page < 0) {
                 page = 0;
             }
@@ -34,7 +30,7 @@ public class CmdSettings implements CmdInterface, ReactHandler {
         msg.addReaction("⬅").queue();
         msg.addReaction("➡").queue();
         msg.addReaction("❌").queue();
-        CmdHandler.reactionTickets.put(msg.getId(), this);
+        CmdHandler.queueReactionTicket(new MsgLink(msg), this);
     }
 
     @Override
@@ -42,18 +38,18 @@ public class CmdSettings implements CmdInterface, ReactHandler {
         boolean sameUser = this.member.getUser().equals(reactEvent.getUser());
         if (sameUser && reactEvent.getEmote().equals("⬅")) {
             page--;
-            CmdHandler.reactionTickets.put(reactEvent.getMessageID(), this);
+            CmdHandler.queueReactionTicket(reactEvent.getMessageLink(), this);
             correctPage();
             reactEvent.getMessage().editMessage(getPageContent()).queue();
         } else if (sameUser && reactEvent.getEmote().equals("➡")) {
             page++;
-            CmdHandler.reactionTickets.put(reactEvent.getMessageID(), this);
+            CmdHandler.queueReactionTicket(reactEvent.getMessageLink(), this);
             correctPage();
             reactEvent.getMessage().editMessage(getPageContent()).queue();
         } else if (sameUser && reactEvent.getEmote().equals("❌")) {
             reactEvent.getMessage().delete().queue();
         } else {
-            CmdHandler.reactionTickets.put(reactEvent.getMessageID(), this);
+            CmdHandler.queueReactionTicket(reactEvent.getMessageLink(), this);
         }
     }
 

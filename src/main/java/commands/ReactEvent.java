@@ -1,35 +1,35 @@
 package commands;
 
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionRemoveEvent;
 
 public class ReactEvent {
-    private String messageID;
-    private TextChannel messageChannel;
+    private MsgLink msgLink;
     private String emote;
     private User user;
     public ReactEvent(MessageReactionAddEvent event) {
-        this.messageID = event.getMessageId();
-        this.messageChannel = event.getTextChannel();
+        this.msgLink = new MsgLink(event.getTextChannel(), event.getMessageId());
         this.emote = event.getReactionEmote().getName();
         this.user = event.getUser();
     }
     public ReactEvent(MessageReactionRemoveEvent event) {
-        this.messageID = event.getMessageId();
-        this.messageChannel = event.getTextChannel();
+        this.msgLink = new MsgLink(event.getTextChannel(), event.getMessageId());
         this.emote = event.getReactionEmote().getName();
         this.user = event.getUser();
     }
 
-    public String getMessageID() {
-        return messageID;
+    public String getMessageId() {
+        return msgLink.getMessage().getId();
+    }
+
+    public MsgLink getMessageLink() {
+        return this.msgLink;
     }
 
     public Message getMessage() {
-        return messageChannel.getMessageById(messageID).complete();
+        return msgLink.getMessage();
     }
     public String getEmote() {
         return emote;

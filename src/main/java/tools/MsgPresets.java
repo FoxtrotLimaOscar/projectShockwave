@@ -223,37 +223,32 @@ public class MsgPresets extends EmbedBuilder {
                 .setDescription("Es wurden keine Songs gefunden")
                 .build();
     }
-    public static MessageEmbed musicQueuedInfo(boolean playlist, String title, String uri) {
-        String description;
-        if (playlist) {
-            description = "Die Playlist \"" + title + "\" wurde der Queue hinzugefügt";
+    public static MessageEmbed musicQueuedInfo(String playlistTitle, AudioTrackInfo trackInfo) {
+        EmbedBuilder embed = new EmbedBuilder().setColor(defaultColor).setTitle("\uD83C\uDFB5 - QUEUE").setThumbnail(ProjectTools.getThumbnail(trackInfo.uri));
+        if (playlistTitle == null) {
+            embed.setDescription("Der Track " + trackInfo.title + " wurde der Queue hinzugefügt");
         } else {
-            description = "Der Track \"" + title + "\" wurde der Queue hinzugefügt";
+            embed.setDescription("Die Playlist " + playlistTitle + " wurde der Queue hinzugefügt");
         }
-        uri = ProjectTools.getThumbnail(uri);
-        return new EmbedBuilder()
-                .setColor(defaultColor)
-                .setTitle("\uD83C\uDFB5 - QUEUE")
-                .setDescription(description)
-                .setThumbnail(uri)
-                .build();
+        return embed.build();
     }
-    public static MessageEmbed musicDequeuedInfo(String title ,String uri) {
-        return new EmbedBuilder()
-                .setColor(defaultColor)
-                .setTitle("\uD83C\uDFB5 - QUEUE")
-                .setDescription("Der Track \"" + title + "\" wurde von der Queue entfernt")
-                .setThumbnail(ProjectTools.getThumbnail(uri))
-                .build();
+    public static MessageEmbed musicDequeuedInfo(String playlistTitle, AudioTrackInfo trackInfo) {
+        EmbedBuilder embed = new EmbedBuilder().setColor(defaultColor).setTitle("\uD83C\uDFB5 - QUEUE").setThumbnail(ProjectTools.getThumbnail(trackInfo.uri));
+        if (playlistTitle == null) {
+            embed.setDescription("Der Track " + trackInfo.title + " wurde von der Queue entfernt");
+        } else {
+            embed.setDescription("Die Playlist " + playlistTitle + " wurde von der Queue entfernt");
+        }
+        return embed.build();
     }
-    public static MessageEmbed musicPlayingInfo(String tile, String uri) {
-        uri = ProjectTools.getThumbnail(uri);
-        return new EmbedBuilder()
-                .setColor(defaultColor)
-                .setTitle("\uD83C\uDFB5 - QUEUE")
-                .setDescription("Der Track \"" + tile + "\" wird nun abgespielt")
-                .setThumbnail(uri)
-                .build();
+    public static MessageEmbed musicPlayingInfo(String playlistTitle, AudioTrackInfo trackInfo) {
+        EmbedBuilder embed = new EmbedBuilder().setColor(defaultColor).setTitle("\uD83C\uDFB5 - QUEUE").setThumbnail(ProjectTools.getThumbnail(trackInfo.uri));
+        if (playlistTitle == null) {
+            embed.setDescription("Der Track " + trackInfo.title + " wird gerade abgespielt");
+        } else {
+            embed.setDescription("Der Track " + trackInfo.title + " aus " + playlistTitle + " wird gerade abgespielt");
+        }
+        return embed.build();
     }
     public static MessageEmbed musicSearchResults(AudioPlaylist playlist) {
         EmbedBuilder builder = new EmbedBuilder().setColor(defaultColor).setTitle("\uD83C\uDFB5 - SUCHERGEBNISSE");
@@ -275,6 +270,13 @@ public class MsgPresets extends EmbedBuilder {
                 .setColor(defaultColor)
                 .setTitle("⚠ - MUSIC")
                 .setDescription("Du musst in einem VoiceChannel sein um Musik abzuspielen")
+                .build();
+    }
+    public static MessageEmbed musicWrongTextChannel(TextChannel channel) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚠ - MUSIC")
+                .setDescription("Alle Infos zur Queue landen in " + channel.getAsMention())
                 .build();
     }
 

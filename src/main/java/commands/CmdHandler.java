@@ -15,13 +15,13 @@ import java.util.HashMap;
 
 public class CmdHandler {
     public static HashMap<String, CmdInterface>  commands = new HashMap<>();
-    public static HashMap<String, ReactHandler> reactionTickets = new HashMap<>();
+    private static HashMap<String, ReactHandler> reactionTickets = new HashMap<>();
 
     public static void handleCommand(Command cmd) {
 
         if (commands.containsKey(cmd.getInvoke().toLowerCase())) {
 
-            //cmd.getEvent().getMessage().delete().queue();
+            cmd.getEvent().getMessage().delete().queue();
 
             CmdInterface cmdInterface = commands.get(cmd.getInvoke().toLowerCase());
             Permission permission = cmdInterface.permission();
@@ -46,10 +46,13 @@ public class CmdHandler {
         return MsgPresets.helpNoSuchCmd();
     }
 
+    public static void queueReactionTicket(MsgLink msgLink, ReactHandler handler) {
+        reactionTickets.put(msgLink.getComparable(), handler);
+    }
     public static void fireReactionTicket(ReactEvent reactEvent) {
-        String ID = reactEvent.getMessageID();
-        if (reactionTickets.containsKey(ID) && !reactEvent.getUser().isBot()) {
-            reactionTickets.remove(ID).emoteUpdate(reactEvent);
+        MsgLink msgLink = reactEvent.getMessageLink();
+        if (reactionTickets.containsKey(msgLink.getComparable()) && !reactEvent.getUser().isBot()) {
+            reactionTickets.remove(msgLink.getComparable()).emoteUpdate(reactEvent);
         }
     }
 
