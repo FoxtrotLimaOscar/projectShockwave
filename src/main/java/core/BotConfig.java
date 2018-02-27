@@ -68,7 +68,7 @@ public class BotConfig {
     }
 
     private static boolean getStartoptionsAuto() {
-        return SubsToolkit.getBoolFromString(config.item(STARTOPTIONS_AUTO).getLine());
+        return SubsToolkit.getBoolFromString(config.item(STARTOPTIONS_AUTO).getSingle());
     }
     private static ArrayList<String> getStartoptionsTokens() {
         return config.item(STARTOPTIONS_TOKENS).getArray();

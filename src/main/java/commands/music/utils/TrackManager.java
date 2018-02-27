@@ -114,4 +114,9 @@ public class TrackManager extends AudioEventAdapter {
     public void resume() {
         PLAYER.setPaused(false);
     }
+
+    public void clearCurrentItem() {
+        queue.peekFirst().clear();
+        PLAYER.stopTrack();
+    }
 }

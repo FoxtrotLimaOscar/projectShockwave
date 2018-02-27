@@ -193,8 +193,7 @@ public class MsgPresets extends EmbedBuilder {
                 .addField("Prefix", guilsettings.getPrefix(), true)
                 .addField("Boot-Nachrichten senden", SubsToolkit.boolSymbol(guilsettings.getBootMessage()), true)
                 .addField("Bot-Channel", guilsettings.getBotChannel().getAsMention(), true)
-                .addField("Music-Channel", guilsettings.getMusicChannel().getTextChannel().getAsMention(), true)
-                .addField("Erzwungener Music-Channel", SubsToolkit.boolSymbol(guilsettings.getMusicChannel().isForced()), true)
+                .addField("Music-Channel", guilsettings.getMusicChannel().getAsMention(), true)
                 .addField("", "", true)
                 .setFooter("Seite 3/4", null)
                 //.addField("DJRolle", guilsettings.getDJRole().getRole().getAsMention(), true)
@@ -209,6 +208,202 @@ public class MsgPresets extends EmbedBuilder {
                 .setFooter("Seite 4/4", null)
                 .build();
     }
+
+
+    public static MessageEmbed setuserMapPut(String key, String val) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - USER MAP")
+                .setDescription("Dem Key [" + key + "](https://) wurde der Wert [" + val + "](https://#) zugewiesen.")
+                .build();
+    }
+    public static MessageEmbed setuserMapRemove(String key) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - USER MAP")
+                .setDescription("Der Key [" + key + "](https://#) wurde gelöscht.")
+                .build();
+    }
+    public static MessageEmbed setuserMapClear() {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - USER MAP")
+                .setDescription("Die Bot-Map wurde gelöscht.")
+                .build();
+    }
+    public static MessageEmbed setuserMapIOError(String prefix) {
+        return new EmbedBuilder()
+                .setColor(warnColor)
+                .setTitle("⚙ - FEHLER")
+                .setDescription("Falscher oder fehlender Parameter\n" + prefix + "setuser map < Schlüssel | clear > < Wert | delete >")
+                .build();
+    }
+
+
+    public static MessageEmbed setbotNP(String prefix) {
+        return new EmbedBuilder()
+                .setColor(warnColor)
+                .setTitle("⚙ - FEHLER")
+                .setDescription("Fehlender Parameter\n" + prefix + "setguild < map | status >")
+                .build();
+    }
+    public static MessageEmbed setbotWP(String prefix) {
+        return new EmbedBuilder()
+                .setColor(warnColor)
+                .setTitle("⚙ - FEHLER")
+                .setDescription("Falscher Parameter \n" + prefix + "setguild < map | status >")
+                .build();
+    }
+    public static MessageEmbed setbotMapPut(String key, String val) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - BOT MAP")
+                .setDescription("Dem Key [" + key + "](https://) wurde der Wert [" + val + "](https://#) zugewiesen.")
+                .build();
+    }
+    public static MessageEmbed setbotMapRemove(String key) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - BOT MAP")
+                .setDescription("Der Key [" + key + "](https://#) wurde gelöscht.")
+                .build();
+    }
+    public static MessageEmbed setbotMapClear() {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - BOT MAP")
+                .setDescription("Die Bot-Map wurde gelöscht.")
+                .build();
+    }
+    public static MessageEmbed setbotMapIOError(String prefix) {
+        return new EmbedBuilder()
+                .setColor(warnColor)
+                .setTitle("⚙ - FEHLER")
+                .setDescription("Falscher oder fehlender Parameter\n" + prefix + "setbot map < Schlüssel | clear > < Wert | delete >")
+                .build();
+    }
+    public static MessageEmbed setbotSts(String sts) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - BOT STATUS")
+                .setDescription("Der Status wurde auf [" + sts + "](https://#) gesetzt.")
+                .build();
+    }
+    public static MessageEmbed setbotStsNoParameter(String prefix) {
+        return new EmbedBuilder()
+                .setColor(warnColor)
+                .setTitle("⚙ - FEHLER")
+                .setDescription("Fehlender Parameter\n" + prefix + "setbot status < Status >")
+                .build();
+    }
+
+
+    public static MessageEmbed setguildNoParameter(String prefix) {
+        return new EmbedBuilder()
+                .setColor(warnColor)
+                .setTitle("⚙ - FEHLER")
+                .setDescription("Fehlender Parameter\n" + prefix + "setguild < prefix | volume | musicchannel >")
+                .build();
+    }
+    public static MessageEmbed setguildWronParameter(String prefix) {
+        return new EmbedBuilder()
+                .setColor(warnColor)
+                .setTitle("⚙ - FEHLER")
+                .setDescription("Falscher Parameter\n" + prefix + "setguild < prefix | volume | musicchannel >")
+                .build();
+    }
+    public static MessageEmbed setguildPfx(String prefix) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - GUILD PREFIX")
+                .setDescription("Das neue Prefix ist \"" + prefix + "\".")
+                .build();
+    }
+    public static MessageEmbed setguildPfxNoParameter(String prefix) {
+        return new EmbedBuilder()
+                .setColor(warnColor)
+                .setTitle("⚙ - FEHLER")
+                .setDescription("Fehlender Parameter\n" + prefix + "setguild prefix < prefix >")
+                .build();
+    }
+    public static MessageEmbed setguildVol(int vol) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - GUILD VOLUME")
+                .setDescription("Die neue Lautstärke ist " + vol + ".")
+                .build();
+    }
+    public static MessageEmbed setguildVolNP(String prefix) {
+        return new EmbedBuilder()
+                .setColor(warnColor)
+                .setTitle("⚙ - FEHLER")
+                .setDescription("Fehlender Parameter\n" + prefix + "setguild volume < Lautstärke >")
+                .build();
+    }
+    public static MessageEmbed setguildMsc(TextChannel msc) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - GUILD MUSICCHANNEL")
+                .setDescription("Der neue MusicChannel ist " + msc.getAsMention() + ".")
+                .build();
+    }
+    public static MessageEmbed setguildMscNP(String prefix) {
+        return new EmbedBuilder()
+                .setColor(warnColor)
+                .setTitle("⚙ - FEHLER")
+                .setDescription("Fehlender Parameter\n" + prefix + "setguild musicchannel < this | #Channel >")
+                .build();
+    }
+    public static MessageEmbed setguildMapPut(String key, String val) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - GUILD MAP")
+                .setDescription("Dem Key [" + key + "](https://) wurde der Wert [" + val + "](https://#) zugewiesen.")
+                .build();
+    }
+    public static MessageEmbed setguildMapRemove(String key) {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - GUILD MAP")
+                .setDescription("Der Key [" + key + "](https://#) wurde gelöscht.")
+                .build();
+    }
+    public static MessageEmbed setguildMapClear() {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - GUILD MAP")
+                .setDescription("Die Guild-Map wurde gelöscht.")
+                .build();
+    }
+    public static MessageEmbed setguildMapIOError(String prefix) {
+        return new EmbedBuilder()
+                .setColor(warnColor)
+                .setTitle("⚙ - FEHLER")
+                .setDescription("Falscher oder fehlender Parameter\n" + prefix + "setguild map < Schlüssel | clear > < Wert | delete >")
+                .build();
+    }
+    public static MessageEmbed setguildDJr(Role role) {
+        String desc;
+        if (role == null) {
+            desc = "Es gibt nun keine DJ-Rolle mehr";
+        } else {
+            desc = role.getAsMention();
+        }
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("⚙ - GUILD DJ-ROLE")
+                .setDescription(desc)
+                .build();
+    }
+    public static MessageEmbed setguildDJrIOError(String prefix) {
+        return new EmbedBuilder()
+                .setColor(warnColor)
+                .setTitle("⚙ - FEHLER")
+                .setDescription("Inkorrekte Eingabe\n" + prefix + "setguild musicrole < @Rolle | null >")
+                .build();
+    }
+
+
     public static MessageEmbed musicNoSearchfactor(String prefix) {
         return new EmbedBuilder()
                 .setColor(defaultColor)
@@ -223,30 +418,30 @@ public class MsgPresets extends EmbedBuilder {
                 .setDescription("Es wurden keine Songs gefunden")
                 .build();
     }
-    public static MessageEmbed musicQueuedInfo(String playlistTitle, AudioTrackInfo trackInfo) {
+    public static MessageEmbed musicQueuedInfo(String playlistTitle, String playlistLink, AudioTrackInfo trackInfo) {
         EmbedBuilder embed = new EmbedBuilder().setColor(defaultColor).setTitle("\uD83C\uDFB5 - QUEUE").setThumbnail(ProjectTools.getThumbnail(trackInfo.uri));
         if (playlistTitle == null) {
-            embed.setDescription("Der Track " + trackInfo.title + " wurde der Queue hinzugefügt");
+            embed.setDescription("Der Track [" + trackInfo.title + "](" + trackInfo.uri + ") wurde der Queue hinzugefügt");
         } else {
-            embed.setDescription("Die Playlist " + playlistTitle + " wurde der Queue hinzugefügt");
+            embed.setDescription("Die Playlist [" + playlistTitle + "](" + playlistLink + ") wurde der Queue hinzugefügt");
         }
         return embed.build();
     }
-    public static MessageEmbed musicDequeuedInfo(String playlistTitle, AudioTrackInfo trackInfo) {
+    public static MessageEmbed musicDequeuedInfo(String playlistTitle, String playlistLink, AudioTrackInfo trackInfo) {
         EmbedBuilder embed = new EmbedBuilder().setColor(defaultColor).setTitle("\uD83C\uDFB5 - QUEUE").setThumbnail(ProjectTools.getThumbnail(trackInfo.uri));
         if (playlistTitle == null) {
-            embed.setDescription("Der Track " + trackInfo.title + " wurde von der Queue entfernt");
+            embed.setDescription("Der Track [" + trackInfo.title + "](" + trackInfo.uri + ") wurde von der Queue entfernt");
         } else {
-            embed.setDescription("Die Playlist " + playlistTitle + " wurde von der Queue entfernt");
+            embed.setDescription("Die Playlist [" + playlistTitle + "](" + playlistLink + " wurde von der Queue entfernt");
         }
         return embed.build();
     }
-    public static MessageEmbed musicPlayingInfo(String playlistTitle, AudioTrackInfo trackInfo) {
+    public static MessageEmbed musicPlayingInfo(String playlistTitle, String playlistLink, AudioTrackInfo trackInfo) {
         EmbedBuilder embed = new EmbedBuilder().setColor(defaultColor).setTitle("\uD83C\uDFB5 - QUEUE").setThumbnail(ProjectTools.getThumbnail(trackInfo.uri));
         if (playlistTitle == null) {
-            embed.setDescription("Der Track " + trackInfo.title + " wird gerade abgespielt");
+            embed.setDescription("Der Track [" + trackInfo.title + "](" + trackInfo.uri + ") wird gerade abgespielt");
         } else {
-            embed.setDescription("Der Track " + trackInfo.title + " aus " + playlistTitle + " wird gerade abgespielt");
+            embed.setDescription("Der Track [" + trackInfo.title + "](" + trackInfo.uri + ") aus der Playlist [" + playlistTitle + "](" + playlistLink + ") wird gerade abgespielt");
         }
         return embed.build();
     }
@@ -254,22 +449,36 @@ public class MsgPresets extends EmbedBuilder {
         EmbedBuilder builder = new EmbedBuilder().setColor(defaultColor).setTitle("\uD83C\uDFB5 - SUCHERGEBNISSE");
         for (int loop = 1; loop <= 5; loop ++) {
             AudioTrackInfo info = playlist.getTracks().get(loop-1).getInfo();
-            builder.addField("Suchergebnis " + loop, info.title, false);
+            builder.addField("Suchergebnis " + loop, "[" + info.title + "](" + info.uri + ")", false);
         }
         return builder.build();
+    }
+    public static MessageEmbed musicPaused() {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("\uD83C\uDFB5 - MUSIC")
+                .setDescription("Die Wiedergabe wurde pausiert")
+                .build();
+    }
+    public static MessageEmbed musicResumed() {
+        return new EmbedBuilder()
+                .setColor(defaultColor)
+                .setTitle("\uD83C\uDFB5 - MUSIC")
+                .setDescription("Die Wiedergabe wurde fortgesetzt")
+                .build();
     }
     public static MessageEmbed musicNotConnected() {
         return new EmbedBuilder()
                 .setColor(defaultColor)
-                .setTitle("\uD83C\uDFB5 - MUSIC")
-                .setDescription("Die Wiedergabe wurde gestoppt")
+                .setTitle("⚠ - MUSIC")
+                .setDescription("Du musst in einem VoiceChannel sein um Musik abzuspielen")
                 .build();
     }
     public static MessageEmbed musicStopped() {
         return new EmbedBuilder()
                 .setColor(defaultColor)
-                .setTitle("⚠ - MUSIC")
-                .setDescription("Du musst in einem VoiceChannel sein um Musik abzuspielen")
+                .setTitle("\uD83C\uDFB5 - MUSIC")
+                .setDescription("Die Wiedergabe wurde gestoppt")
                 .build();
     }
     public static MessageEmbed musicWrongTextChannel(TextChannel channel) {
@@ -277,44 +486,6 @@ public class MsgPresets extends EmbedBuilder {
                 .setColor(defaultColor)
                 .setTitle("⚠ - MUSIC")
                 .setDescription("Alle Infos zur Queue landen in " + channel.getAsMention())
-                .build();
-    }
-
-
-
-    public static MessageEmbed mapSaves(Map<String, String> map) {
-        EmbedBuilder builder = new EmbedBuilder().setColor(defaultColor).setTitle("\uD83D\uDD17 - MAP");
-        String mapString = "";
-        if (map.isEmpty()) {
-            builder.setDescription("Dein Map ist leer");
-        } else {
-            for (Map.Entry<String, String> entry : map.entrySet()) {
-                mapString += "-" + entry.getKey() + ":\n" + entry.getValue() + "\n";
-            }
-            mapString = mapString.substring(0, mapString.length() - 2);
-        }
-        builder.setDescription(mapString);
-        return builder.build();
-    }
-    public static MessageEmbed mapNoSuchKey(String key) {
-        return new EmbedBuilder()
-                .setColor(defaultColor)
-                .setTitle("\uD83D\uDD17 - MAP")
-                .setDescription("Ein Schlüssel mit dem Namen \"" + key + "\" existiert nicht")
-                .build();
-    }
-    public static MessageEmbed mapDeleted(String key) {
-        return new EmbedBuilder()
-                .setColor(defaultColor)
-                .setTitle("\uD83D\uDD17 - MAP")
-                .setDescription("Der Schlüssel \"" + key + "\" wurde erfolgreich entfernt")
-                .build();
-    }
-    public static MessageEmbed mapSaved(String key, String value) {
-        return new EmbedBuilder()
-                .setColor(defaultColor)
-                .setTitle("\uD83D\uDD17 - MAP")
-                .setDescription("\"" + value + "\" wurde erfolgreich an den Schlüssel \" " + key + "\" gebunden")
                 .build();
     }
 }

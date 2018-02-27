@@ -6,9 +6,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import commands.*;
 import commands.music.utils.*;
 import core.Permission;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.*;
 import core.database.Database;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import tools.MsgPresets;
@@ -16,11 +14,14 @@ import tools.MsgPresets;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class CmdPlay implements CmdInterface, SearchResultHandler {
 
     private Member member;
     private TextChannel channel;
+    private String playlistLink;
 
     @Override
     public Permission permission() {
@@ -30,20 +31,33 @@ public class CmdPlay implements CmdInterface, SearchResultHandler {
     @Override
     public void run(Command cmd) {
         GuildMessageReceivedEvent event = cmd.getEvent();
+        Guild guild = event.getGuild();
+        User user = event.getAuthor();
+        TrackManager trackManager = PlayerManager.getTrackManager(guild);
         this.member = event.getMember();
         this.channel = event.getChannel();
-        if (cmd.hasParam(1)) {
-            String identifier = cmd.getRaw(1);
-            identifier = makeSearchReady(identifier);
-            PlayerManager.searchTrack(this.member.getGuild(), identifier, this);
-        } else {
-            this.channel.sendMessage(MsgPresets.musicNoSearchfactor(Database.getGuild(this.member.getGuild()).getPrefix())).queue();
+        if (trackManager.isPaused()) {
+            trackManager.resume();
+            this.channel.sendMessage(MsgPresets.musicResumed()).queue(m -> m.delete().queueAfter(10, TimeUnit.SECONDS));
+            return;
         }
+        if (!cmd.hasParam(1)) {
+            this.channel.sendMessage(MsgPresets.musicNoSearchfactor(Database.getGuild(guild).getPrefix())).queue(m -> m.delete().queueAfter(10, TimeUnit.SECONDS));
+            return;
+        }
+        String raw = cmd.getRaw(1);
+        String identifier = getMapSong(raw, guild, user);
+        if (identifier == null) {
+            identifier = raw;
+        }
+        identifier = makeSearchReady(identifier);
+        PlayerManager.searchTrack(guild, identifier, this);
+        this.playlistLink = identifier;
     }
 
     @Override
     public String syntax(String prefix) {
-        return prefix + "play < Suchschlüssel | Link >";
+        return prefix + "play < Map-Schlüssel | Suchbegriff | Link >";
     }
 
     @Override
@@ -58,10 +72,11 @@ public class CmdPlay implements CmdInterface, SearchResultHandler {
 
     @Override
     public void searchResults(AudioPlaylist playlist) {
-        handleSearchResults(playlist, this.channel, this.member);
+        handleSearchResults(playlist, this.playlistLink, this.channel, this.member);
     }
 
-    static void handleSearchResults(AudioPlaylist playlist, TextChannel channel, Member member) {
+    static void handleSearchResults(AudioPlaylist playlist, String playlistLink, TextChannel channel, Member member) {
+        System.out.println("cmdPlay.handleSearchResults()");
         if (!member.getVoiceState().inVoiceChannel()) {
             channel.sendMessage(MsgPresets.musicNotConnected()).queue();
             return;
@@ -74,7 +89,8 @@ public class CmdPlay implements CmdInterface, SearchResultHandler {
         } else {
             stackTracks.addAll(foundTracks);
         }
-        manager.queue(new QueueItem(stackTracks, member, playlist.getName()));
+        System.out.println("cmdPlay.handleSearchResults()=" + stackTracks.get(0).getInfo().title);
+        manager.queue(new QueueItem(stackTracks, member, playlist.getName(), playlistLink));
     }
 
     static String makeSearchReady(String identifier) {
@@ -82,5 +98,12 @@ public class CmdPlay implements CmdInterface, SearchResultHandler {
             identifier = "ytsearch:" + identifier;
         }
         return identifier;
+    }
+
+    private static String getMapSong(String key, Guild guild, User user) {
+        Map<String, String > userMap = Database.getUser(user).getMap();
+        Map<String, String > guildMap = Database.getGuild(guild).getMap();
+        Map<String, String > botMap = Database.getBot().getMap();
+        return userMap.getOrDefault(key, guildMap.getOrDefault(key, botMap.getOrDefault(key, null)));
     }
 }

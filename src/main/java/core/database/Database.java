@@ -30,6 +30,6 @@ public class Database {
 
     public static BSettings getBot() {
         Statics.databaseAccesses++;
-        return new BSettings();
+        return new BSettings("BOT-");
     }
 }

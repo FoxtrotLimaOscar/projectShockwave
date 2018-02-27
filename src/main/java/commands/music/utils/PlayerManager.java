@@ -8,6 +8,7 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import core.database.Database;
 import net.dv8tion.jda.core.entities.Guild;
 
 import java.util.*;
@@ -21,6 +22,7 @@ public class PlayerManager {
         AudioPlayer player = MANAGER.createPlayer();
         TrackManager manager = new TrackManager(player, guild);
         player.addListener(manager);
+        player.setVolume(Database.getGuild(guild).getVolume());
         guild.getAudioManager().setSendingHandler(new PlayerSendHandler(player));
         PLAYERS.put(guild, new AbstractMap.SimpleEntry<>(player, manager));
         return player;
@@ -40,6 +42,9 @@ public class PlayerManager {
 
     public static TrackManager getTrackManager(Guild guild) {
         //TODO: Kontrollieren ob Manager Null returnen darf
+        if (!PLAYERS.containsKey(guild)) {
+            createPlayer(guild);
+        }
         return PLAYERS.get(guild).getValue();
     }
 
@@ -67,5 +72,8 @@ public class PlayerManager {
 
     public static void skip(Guild guild) {
         getPlayer(guild).stopTrack();
+    }
+    public static void skipPlaylist(Guild guild) {
+        getTrackManager(guild).clearCurrentItem();
     }
 }

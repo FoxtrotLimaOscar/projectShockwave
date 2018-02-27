@@ -7,4 +7,11 @@ public class ProjectTools {
     public static boolean isChannelID(String id) {
         return id.length() == 18 && id.chars().allMatch(Character::isDigit);
     }
+    public static int convertVolume(int vol, boolean toLP) {
+        if (toLP) {
+            return vol/10;
+        } else {
+            return vol*10;
+        }
+    }
 }

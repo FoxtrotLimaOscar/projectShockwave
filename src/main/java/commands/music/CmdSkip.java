@@ -3,6 +3,7 @@ package commands.music;
 import commands.CmdInterface;
 import commands.Command;
 import commands.music.utils.PlayerManager;
+import commands.music.utils.TrackManager;
 import core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 
@@ -16,12 +17,16 @@ public class CmdSkip implements CmdInterface {
     public void run(Command cmd) {
         Guild guild = cmd.getEvent().getGuild();
         if (PlayerManager.isIdle(guild)) return;
-        PlayerManager.skip(guild);
+        if (cmd.hasParam(1) && cmd.getSlice(1).equals("playlist")) {
+            PlayerManager.skipPlaylist(guild);
+        } else {
+            PlayerManager.skip(guild);
+        }
     }
 
     @Override
     public String syntax(String prefix) {
-        return prefix + "skip";
+        return prefix + "skip < playlist >";
     }
 
     @Override

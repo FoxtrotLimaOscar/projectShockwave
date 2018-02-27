@@ -1,12 +1,14 @@
 package core.database.groups;
 
 import com.toddway.shelf.ShelfItem;
-import core.database.structures.DJRole;
-import core.database.structures.MusicChannel;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
 import core.BotConfig;
 import core.database.Database;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GSettings {
     private Guild guild;
@@ -20,7 +22,6 @@ public class GSettings {
         return Database.shelf.item(path + key);
     }
 
-
     public void setPrefix(String prefix) {
         item("PREFIX").put(prefix);
     }
@@ -30,7 +31,6 @@ public class GSettings {
         }
         return BotConfig.getDefaultPrefix();
     }
-
 
     public void setBotChannel(TextChannel channel) {
         item("BOTCHANNEL").put(channel);
@@ -53,15 +53,14 @@ public class GSettings {
         return true;
     }
 
-
-    public void setDJRole(DJRole djRole) {
-        item("DJROLE").put(djRole);
+    public void setDJRole(Role role) {
+        item("DJROLE").put(role);
     }
-    public DJRole getDJRole() {
+    public Role getDJRole() {
         if (item("DJROLE").exists()) {
-            return item("DJROLE").get(DJRole.class);
+            return item("DJROLE").get(Role.class);
         }
-        return new DJRole();
+        return null;
     }
 
     //Wert von 200 bis 0
@@ -82,15 +81,23 @@ public class GSettings {
         }
     }
 
-
-
-    public void setMusicChannel(MusicChannel channel) {
+    public void setMusicChannel(TextChannel channel) {
         item("MUSICCHANNEL").put(channel);
     }
-    public MusicChannel getMusicChannel() {
+    public TextChannel getMusicChannel() {
         if (item("MUSICCHANNEL").exists()) {
-            return item("MUSICCHANNEL").get(MusicChannel.class);
+            return item("MUSICCHANNEL").get(TextChannel.class);
         }
-        return new MusicChannel(guild.getDefaultChannel());
+        return this.guild.getDefaultChannel();
+    }
+
+    public void setMap(Map<String, String> map) {
+        item("MAP").put(map);
+    }
+    public Map<String, String> getMap() {
+        if (item("MAP").exists()) {
+            return (Map<String, String>) item("MAP").get(Map.class);
+        }
+        return new HashMap<>();
     }
 }
